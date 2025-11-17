@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-16T17:46:29.618Z" hostname="ELEANORUNI" time="0.014">
+<testsuite name="org.example.LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-11-17T10:58:34.021Z" hostname="ELEANORUNI" time="0.061">
   <properties/>
-  <testcase name="someLibraryMethodReturnsTrue()" classname="org.example.LibraryTest" time="0.014"/>
+  <testcase name="someLibraryMethodReturnsTrue()" classname="org.example.LibraryTest" time="0.061"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
