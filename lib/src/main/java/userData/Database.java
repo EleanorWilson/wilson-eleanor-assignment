@@ -25,6 +25,9 @@ public class Database {
 	// variable to store file path for student dataset
 	public String filePath;
 	
+	// variable to store file for dataset
+	public File studentDatabaseFile;
+	
 	/** 
 	 * @Database
 	 * Constructor for the database of the student data array list of array lists from the student database file.
@@ -32,7 +35,7 @@ public class Database {
 	
 	public Database() {
 		// creating a file variable with student database txt file, must use src/ path
-		File studentDatabaseFile = new File(this.filePath);
+		setStudentDatabaseFile(this.filePath);
 		
 		// calling method to turn data in studentData into list of lists
 		ArrayList<ArrayList<String>> studentDatabase = getStudentDataFromFile(studentDatabaseFile);
@@ -91,6 +94,7 @@ public class Database {
 	
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+		setStudentDatabaseFile(this.filePath);
 	}
 
 	/**
@@ -102,5 +106,24 @@ public class Database {
 		return this.filePath;	
 	}
 	
+	/**
+	 * @setStudentDatabaseFile
+	 * Method to convert filePath String to file
+	 * @param filePath
+	 * Requires the string variable filePath in the form "src/..."
+	 */
+	
+	public void setStudentDatabaseFile(String filePath) {
+		this.studentDatabaseFile = new File(filePath);
+	}
+	
+	/**
+	 * @getStudentDatabaseFile
+	 * Method to return StudentDatabase File
+	 */
+	
+	public File getStudentDatabaseFile() {
+		return this.studentDatabaseFile;
+	}
 	
 } // class
