@@ -172,8 +172,12 @@ class StudentTest {
 		
 		// test setting and getting id # 1
 		test.setGenerateId();
+		boolean inRange = true;
+		if (test.getId() <= 0 || test.getId() > 250) {
+			inRange = false;
+		}
 		
-		assertTrue(1 <= test.getId() && test.getId() >= 250);
+		assertTrue(inRange);		
 	}
 	
 }
