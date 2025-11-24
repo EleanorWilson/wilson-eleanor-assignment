@@ -4,6 +4,7 @@ import userData.Student.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
 
@@ -136,6 +137,43 @@ class StudentTest {
 		test.setEmail("---\n");
 		assertEquals("---\n", test.getEmail());
 		
+	}
+	
+	@Test
+	@DisplayName("Generate Email")
+	void testGenerateEmail() {
+		
+		// test setting first and last to generate email test # 1
+		test.setFirst("First");
+		test.setLast("Last");
+		test.setGenerateEmail();
+		
+		assertEquals("First.Last@stu.mmu.ac.uk", test.getEmail());
+		
+		// test setting first and last to generate email test # 2
+		test.setFirst("Blah\n  ");
+		test.setLast("Test^^");
+		test.setGenerateEmail();
+		
+		assertEquals("Blah\n  .Test^^@stu.mmu.ac.uk", test.getEmail());
+		
+		// test setting first and last to generate email test # 3
+		test.setFirst("");
+		test.setLast("");
+		test.setGenerateEmail();
+		
+		assertEquals(".@stu.mmu.ac.uk", test.getEmail());	
+		
+	}
+	
+	@Test
+	@DisplayName("Generate ID")
+	void testGenerateID() {
+		
+		// test setting and getting id # 1
+		test.setGenerateId();
+		
+		assertTrue(1 <= test.getId() && test.getId() >= 250);
 	}
 	
 }

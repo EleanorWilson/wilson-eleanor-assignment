@@ -59,10 +59,20 @@ public class Student {
 		return id;
 	}
 	
+	// set the id to the generated Id value
+	public void setGenerateId() {
+		this.id = generateId();
+	}
+	
 	// generateEmail
-	public String generateEmail(String first, String last) {
-		String email = first + last + "@stu.mmu.ac.uk";
+	public String generateEmail() {
+		String email = this.first + "."+ this.last + "@stu.mmu.ac.uk";
 		return email;
+	}
+	
+	// set the email to the generated email value
+	public void setGenerateEmail() {
+		this.email = generateEmail();
 	}
 	
 	// generateDob
@@ -70,6 +80,11 @@ public class Student {
 		Calendar dob = Calendar.getInstance();
 		dob.set(year, month, day);
 		return dob;
+	}
+	
+	// set the dob to the generate dob value
+	public void setGenerateDob(int year, int month, int day) {
+		this.dob = generateDob(year, month, day);
 	}
 	
 	//--------------------------------------
