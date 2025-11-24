@@ -169,15 +169,29 @@ class StudentTest {
 	@Test
 	@DisplayName("Generate ID")
 	void testGenerateID() {
-		
 		// test setting and getting id # 1
 		test.setGenerateId();
 		boolean inRange = true;
 		if (test.getId() <= 0 || test.getId() > 250) {
 			inRange = false;
 		}
+		assertTrue(inRange);
 		
-		assertTrue(inRange);		
+		// test setting and getting id # 2
+		test.setGenerateId();
+		inRange = true;
+		if (test.getId() <= 0 || test.getId() > 250) {
+			inRange = false;
+		}
+		assertTrue(inRange);
+
+		// test setting and getting id # 3
+		test.setGenerateId();
+		inRange = true;
+		if (test.getId() <= 0 || test.getId() > 250) {
+			inRange = false;
+		}
+		assertTrue(inRange);
 	}
 	
 }
