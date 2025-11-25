@@ -36,7 +36,7 @@ public class PasswordValidatorTest {
 		// check that the array returned contains correct valid characters
 		assertEquals('A', validChar[0]);
 		assertEquals('E', validChar[4]);
-		assertEquals('M', validChar[13]);
+		assertEquals('N', validChar[13]);
 		assertEquals('R', validChar[17]);
 		assertEquals('T', validChar[19]);
 		assertEquals('Z', validChar[25]);
@@ -51,7 +51,7 @@ public class PasswordValidatorTest {
 		// check that the array returned contains correct valid characters
 		assertEquals('a', validChar[0]);
 		assertEquals('e', validChar[4]);
-		assertEquals('m', validChar[13]);
+		assertEquals('n', validChar[13]);
 		assertEquals('r', validChar[17]);
 		assertEquals('t', validChar[19]);
 		assertEquals('z', validChar[25]);
