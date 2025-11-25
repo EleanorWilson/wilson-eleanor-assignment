@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 
 
-/**@Student
+/**
  * {@summary} This class is used to generate student objects and parameters for the student class. It contains getters and setters for student objects.
  */
 public class Student {
@@ -21,13 +21,13 @@ public class Student {
 	// constructors
 	//--------------------------------------
 	
-	/**@Student
+	/**
 	 * This is an empty constructor for student objects.
 	 */
 	public Student() {} // empty constructor
 	
 	
-	/**@Student
+	/**
 	 * This constructor creates a Student object from which the methods in the Student class can be called.
 	 * @param id - Id must be in integer form, can be generated with the generateId method of this class.
 	 * @param first - This is the first name of the student, must be a string.
@@ -53,22 +53,29 @@ public class Student {
 	
 	
 	//--------------------------------------
-	// constructors
+	// methods
 	//--------------------------------------	
 		
-	// generateId
+	/**
+	 * This method returns a random number between 1 and 250 (inclusive)
+	 * @return
+	 * Returns an integer between 1 and 250 (inclusive) 
+	 */
 	public int generateId() {
-		// range = 1 - 250 (min inclusive, max exclusive). For the maximum number of students that can be held
+		// range of random number generated = 1 - 250
 		int id = (int)(Math.random()*251+1);
 		return id;
 	}
 	
-	// set the id to the generated Id value
+	// set the id variable to the generated Id value
 	public void setGenerateId() {
 		this.id = generateId();
 	}
 	
-	// generateEmail
+	/** 
+	 * This method generates an email from the first & last name of the student in the form first.last@stu.mmu.ac.uk
+	 * @return - This returns a String.
+	 */
 	public String generateEmail() {
 		String email = this.first + "."+ this.last + "@stu.mmu.ac.uk";
 		return email;
@@ -80,8 +87,7 @@ public class Student {
 	}
 	
 	/**
-	 * @generateDob
-	 * This method converts three integer values, representing year, month and day, respectively, into a calendar data type.
+	 * This method converts three integer values (representing year, month and day, respectively) into a calendar data type.
 	 * @param year - Integer value representing year of birth.
 	 * @param month - Integer value representing month of birth.
 	 * @param day - Integer value representing day of birth.
@@ -95,8 +101,7 @@ public class Student {
 	}
 	
 	/**
-	 * @setGenerateDob
-	 * This method uses the @generateDob method to generate a calendar data type from three integers and sets the DOB variable to the generated calendar date.
+	 * This method calls the @generateDob method to generate a calendar data type from three integers and sets the DOB variable to the generated calendar date.
 	 * @param year - Integer value representing year of birth.
 	 * @param month - Integer value representing month of birth.
 	 * @param day - Integer value representing day of birth.
