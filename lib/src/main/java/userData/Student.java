@@ -52,10 +52,14 @@ public class Student {
 	}
 	
 	
+	//--------------------------------------
+	// constructors
+	//--------------------------------------	
+		
 	// generateId
 	public int generateId() {
-		// range = 250, for the maximum number of students that can be held
-		int id = (int)(Math.random()*250+1);
+		// range = 1 - 250 (min inclusive, max exclusive). For the maximum number of students that can be held
+		int id = (int)(Math.random()*251+1);
 		return id;
 	}
 	
@@ -75,14 +79,28 @@ public class Student {
 		this.email = generateEmail();
 	}
 	
-	// generateDob
+	/**
+	 * @generateDob
+	 * This method converts three integer values, representing year, month and day, respectively, into a calendar data type.
+	 * @param year - Integer value representing year of birth.
+	 * @param month - Integer value representing month of birth.
+	 * @param day - Integer value representing day of birth.
+	 * @return - Returns a calendar data type.
+	 */
 	public Calendar generateDob(int year, int month, int day) {
 		Calendar dob = Calendar.getInstance();
-		dob.set(year, month, day);
+		// Months in calendar data type begin at 0, therefore the month integer must be reduced by 1.
+		dob.set(year, month-1, day);
 		return dob;
 	}
 	
-	// set the dob to the generate dob value
+	/**
+	 * @setGenerateDob
+	 * This method uses the @generateDob method to generate a calendar data type from three integers and sets the DOB variable to the generated calendar date.
+	 * @param year - Integer value representing year of birth.
+	 * @param month - Integer value representing month of birth.
+	 * @param day - Integer value representing day of birth.
+	 */
 	public void setGenerateDob(int year, int month, int day) {
 		this.dob = generateDob(year, month, day);
 	}

@@ -169,6 +169,7 @@ class StudentTest {
 	@Test
 	@DisplayName("Generate ID")
 	void testGenerateID() {
+		
 		// test setting and getting id # 1
 		test.setGenerateId();
 		boolean inRange = true;
@@ -192,6 +193,77 @@ class StudentTest {
 			inRange = false;
 		}
 		assertTrue(inRange);
+	}
+	
+	
+	@Test
+	@DisplayName("Generate DOB")
+	void testGenerateDOB() {
+		
+	}
+	
+	@Test
+	@DisplayName("Set & Get Subject")
+	void testSubject() {
+		// set subject no special characters # 1
+		test.setSuject("Mathematics");
+		assertEquals("Mathematics", test.getSubject());
+		
+		// set subject no special characters # 2
+		test.setSuject("English");
+		assertEquals("English", test.getSubject());
+		
+		// set subject no special characters # 3
+		test.setSuject("Physics");
+		assertEquals("Physics", test.getSubject());
+		
+		// set subject special characters - \n symbol
+		test.setSuject("  :'@..\\n\n");
+		assertEquals("  :'@..\\n\n", test.getSubject());
+		
+		// set subject special characters - *| symbols
+		test.setSuject("*| .. ");
+		assertEquals("*| .. ", test.getSubject());	
+		
+		// set subject blank
+		test.setSuject("");
+		assertEquals("", test.getSubject());		
+	}
+	
+	@Test
+	@DisplayName("Set & Get Year of Study")
+	void testYearOfStudy() {
+		// set valid year # 1
+		test.setYearOfStudy(1);
+		assertEquals(1, test.getYearOfStudy());
+		
+		// set valid year # 2
+		test.setYearOfStudy(7);
+		assertEquals(7, test.getYearOfStudy());
+		
+		// set valid year # 3
+		test.setYearOfStudy(3);
+		assertEquals(3, test.getYearOfStudy());
+		
+		// set year 0
+		test.setYearOfStudy(0);
+		assertEquals(0, test.getYearOfStudy());
+		
+		// set year -8
+		test.setYearOfStudy(-8);
+		assertEquals(-8, test.getYearOfStudy());
+	}
+	
+	@Test
+	@DisplayName("Get & Set Password")
+	void testPassword() {
+		
+	}
+	
+	@Test
+	@DisplayName("Get & Set Memorable Word")
+	void testMemorableWord() {
+		
 	}
 	
 }
