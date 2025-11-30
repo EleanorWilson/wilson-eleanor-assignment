@@ -3,14 +3,14 @@ import userData.Student.*;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+// import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Calendar;
+// import java.util.Calendar;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
+// import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Student Tests")
@@ -257,12 +257,58 @@ class StudentTest {
 	@Test
 	@DisplayName("Get & Set Password")
 	void testPassword() {
-		// set password 
+		// set password Password.1234
+		test.setPassword("Password.1234");
+		assertEquals("Password.1234", test.getPassword());
+		
+		// set password    :'@..\\n\n
+		test.setPassword("  :'@..\\n\n");
+		assertEquals("  :'@..\\n\n", test.getPassword());
+		
+		// set password 345bjkdg][dfs';as
+		test.setPassword("345bjkdg][dfs';as");
+		assertEquals("345bjkdg][dfs';as", test.getPassword());
+		
+		// set password long
+		test.setPassword("Loremipsumdolorsitamet,consecteturadipiscingelit,seddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniam,quisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat.Duisauteiruredolorinreprehenderitinvoluptatevelitessecillumdoloreeufugiatnullapariatur.Excepteursintoccaecatcupidatatnonproident,suntinculpaquiofficiadeseruntmollitanimidestlaborum");
+		assertEquals("Loremipsumdolorsitamet,consecteturadipiscingelit,seddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniam,quisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat.Duisauteiruredolorinreprehenderitinvoluptatevelitessecillumdoloreeufugiatnullapariatur.Excepteursintoccaecatcupidatatnonproident,suntinculpaquiofficiadeseruntmollitanimidestlaborum", test.getPassword());
+		
+		// set password short
+		test.setPassword("-");
+		assertEquals("-", test.getPassword());
+		
+		// set password blank
+		test.setPassword("");
+		assertEquals("", test.getPassword());
+		
 	}
 	
 	@Test
 	@DisplayName("Get & Set Memorable Word")
 	void testMemorableWord() {
+		// set memorable word blank
+		test.setMemorableWord("");
+		assertEquals("", test.getMemorableWord());
+		
+		// set memorable word special characters
+		test.setMemorableWord("\\n\n\\:..dj^&&&*8''~");
+		assertEquals("\\n\n\\:..dj^&&&*8''~", test.getMemorableWord());
+		
+		// set memorable word long
+		test.setMemorableWord("Loremipsumdolorsitamet,consecteturadipiscingelit,seddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniam,quisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat.Duisauteiruredolorinreprehenderitinvoluptatevelitessecillumdoloreeufugiatnullapariatur.Excepteursintoccaecatcupidatatnonproident,suntinculpaquiofficiadeseruntmollitanimidestlaborum");
+		assertEquals("Loremipsumdolorsitamet,consecteturadipiscingelit,seddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniam,quisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat.Duisauteiruredolorinreprehenderitinvoluptatevelitessecillumdoloreeufugiatnullapariatur.Excepteursintoccaecatcupidatatnonproident,suntinculpaquiofficiadeseruntmollitanimidestlaborum", test.getMemorableWord());
+		
+		// set memorable word no special characters
+		test.setMemorableWord("normalword");
+		assertEquals("normalword", test.getMemorableWord());
+		
+		// set memorable word tags
+		test.setMemorableWord("$<sadasd>jksadas</sadasd>");
+		assertEquals("$<sadasd>jksadas</sadasd>", test.getMemorableWord());
+		
+		// set memorable word spaces & special characters
+		test.setMemorableWord("open sesame @~");
+		assertEquals("open sesame @~", test.getMemorableWord());		
 		
 	}
 	

@@ -1,12 +1,19 @@
 package userData;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.logging.*;
+
+
+import manager.PasswordValidator;
 
 
 /**
  * {@summary} This class is used to generate student objects and parameters for the student class. It contains getters and setters for student objects.
  */
 public class Student {
+	// Adding a logger
+	private static Logger LOGGER = Logger.getLogger(Student.class.getName());
+	
 	private int id;
 	private String first;
 	private String last;
@@ -146,7 +153,7 @@ public class Student {
 		return this.password;
 	}
 	
-	public String memorableWord() {
+	public String getMemorableWord() {
 		return this.memorableWord;
 	}
 	

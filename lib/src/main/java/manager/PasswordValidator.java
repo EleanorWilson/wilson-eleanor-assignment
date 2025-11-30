@@ -8,7 +8,7 @@ import java.util.logging.*;
  * <br>- Contains at least one of each of the following: uppercase letter, lowercase letter, special character, number.
  */
 public class PasswordValidator {
-	//Logger
+	// Adding a logger
 	private static Logger LOGGER = Logger.getLogger(PasswordValidator.class.getName());
 	
 	// Passwords must be a minimum of 8 characters long
