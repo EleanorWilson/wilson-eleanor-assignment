@@ -1,0 +1,2 @@
+1234,first,last,first.last@stu.mmu.ac.uk,mathematics,1st,11.11.2006,password123,
+1235,leonhard,euler,leonhard.euler@stu.mmu.ac.uk,mathematics,4th,15.04.1997,M@th54Lyf!,
