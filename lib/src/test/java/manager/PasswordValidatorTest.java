@@ -31,7 +31,7 @@ public class PasswordValidatorTest {
 	@Test
 	@DisplayName("Get Valid Lowercase Characters")
 	public void testValidUpper() {
-		// get array of valid Uppercase Letters
+		// get array of valid uppercase Letters
 		char[] validChar = PasswordValidator.getUppercaseLetters();
 		
 		// check that the array returned contains correct valid characters
@@ -46,7 +46,7 @@ public class PasswordValidatorTest {
 	@Test
 	@DisplayName("Get Valid Uppercase Characters")
 	public void testValidLower() {
-		// get array of valid Uppercase Letters
+		// get array of valid uppercase Letters
 		char[] validChar = PasswordValidator.getLowercaseLetters();
 		
 		// check that the array returned contains correct valid characters
@@ -61,7 +61,7 @@ public class PasswordValidatorTest {
 	@Test
 	@DisplayName("Get Valid Digits")
 	public void testValidDigits() {
-		// get array of valid Uppercase Letters
+		// get array of valid uppercase Letters
 		char[] validChar = PasswordValidator.getDigits();
 		
 		// check that the array returned contains correct valid characters
@@ -116,6 +116,64 @@ public class PasswordValidatorTest {
 		
 		// spaces are not valid characters
 		assertFalse(PasswordValidator.checkAllowedCharactersOnly(" "));
+	}
+	
+	@Test
+	@DisplayName("Check Password Length")
+	public void testCheckPasswordLength() {
+		
+		assertTrue(PasswordValidator.checkPasswordLength("Password1234"));
+		assertTrue(PasswordValidator.checkPasswordLength("        "));
+		assertTrue(PasswordValidator.checkPasswordLength("@_??\n^*&"));
+		assertTrue(PasswordValidator.checkPasswordLength("..................................."));
+		
+		assertFalse(PasswordValidator.checkPasswordLength("       "));
+		assertFalse(PasswordValidator.checkPasswordLength(""));
+		assertFalse(PasswordValidator.checkPasswordLength("123456"));
+		assertFalse(PasswordValidator.checkPasswordLength("\n\n\n"));
+	}
+	
+	@Test
+	@DisplayName("Check Password Contains Minimum Character Counts")
+	public void testCheckMinimumCharacterCount() {
+		
+		assertTrue(PasswordValidator.checkMinimumCharacterCount("Password.1234"));
+		assertTrue(PasswordValidator.checkMinimumCharacterCount("passW0rd_1234"));
+		assertTrue(PasswordValidator.checkMinimumCharacterCount("Ll!1"));
+		assertTrue(PasswordValidator.checkMinimumCharacterCount("0-Mw"));
+		assertTrue(PasswordValidator.checkMinimumCharacterCount("TTTTT00000@@@@@ooooo"));
+		
+		assertFalse(PasswordValidator.checkMinimumCharacterCount("TTTTT_____@@@@@"));
+		assertFalse(PasswordValidator.checkMinimumCharacterCount("password.1234"));
+		assertFalse(PasswordValidator.checkMinimumCharacterCount("Password1234"));
+		assertFalse(PasswordValidator.checkMinimumCharacterCount("0)Mw"));
+		assertFalse(PasswordValidator.checkMinimumCharacterCount(""));
+		assertFalse(PasswordValidator.checkMinimumCharacterCount(" "));
+		
+	}
+	
+	@Test
+	@DisplayName("Password validator")
+	public void testPasswordValidator() {
+		
+		assertTrue(PasswordValidator.passwordValidator("Password.1234"));
+		assertTrue(PasswordValidator.passwordValidator("passW0rd_1234"));
+		assertTrue(PasswordValidator.passwordValidator("Ll!1mmmm"));
+		assertTrue(PasswordValidator.passwordValidator("0-Mw5555"));
+		assertTrue(PasswordValidator.passwordValidator("TTTTT00000@@@@@ooooo"));
+		assertTrue(PasswordValidator.passwordValidator("t6.Tt6.T"));
+		
+		assertFalse(PasswordValidator.passwordValidator(""));
+		assertFalse(PasswordValidator.passwordValidator("       "));
+		assertFalse(PasswordValidator.passwordValidator("1nV@l1d"));
+		assertFalse(PasswordValidator.passwordValidator("2Sh.rt!"));
+		assertFalse(PasswordValidator.passwordValidator("/[}{}};'"));
+		assertFalse(PasswordValidator.passwordValidator("password1234"));
+		assertFalse(PasswordValidator.passwordValidator("Password1234"));
+		assertFalse(PasswordValidator.passwordValidator("&&&&&&&&&"));
+		assertFalse(PasswordValidator.passwordValidator("*******"));
+		assertFalse(PasswordValidator.passwordValidator("HelloWorld!"));
+		
 	}
 
 }

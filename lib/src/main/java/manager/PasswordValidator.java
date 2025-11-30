@@ -1,4 +1,5 @@
 package manager;
+import java.util.logging.*;
 
 /**
  * Class to check a password is:
@@ -7,6 +8,8 @@ package manager;
  * <br>- Contains at least one of each of the following: uppercase letter, lowercase letter, special character, number.
  */
 public class PasswordValidator {
+	//Logger
+	private static Logger LOGGER = Logger.getLogger(PasswordValidator.class.getName());
 	
 	// Passwords must be a minimum of 8 characters long
 	private static final int passwordMinLength = 8;
@@ -28,8 +31,22 @@ public class PasswordValidator {
 	// Methods
 	//--------------------------------------
 	
-	public boolean checkPasswordLength(String password) {
-		return (password.length() >= passwordMinLength);
+	
+	/**
+	 * This method checks the password contains the minimum number of characters, defined in the PasswordValidator class.
+	 * @param password - This is the password (String) to be checked.
+	 * @return - A boolean:
+	 * <br>- true = The password is a valid length.
+	 * <br>- false = The password is not a valid length.
+	 */
+	public static boolean checkPasswordLength(String password) {
+		boolean validLength = (password.length() >= passwordMinLength);
+		
+		if (!validLength) {
+			LOGGER.info("Your password is only "+password.length() + " characters long (minimum length: " + passwordMinLength + ")");
+		}
+		
+		return validLength;
 	}
 	
 	
@@ -58,7 +75,6 @@ public class PasswordValidator {
 					for (char a : allowedSpecial) {
 				
 						if (c == a) {
-							System.out.println("Checking password character c: "+ c + ", against character a: "+ a);
 							thisCharAllowed = true;
 							// move to next character in password, as this character is known to be valid
 							break checkArraysLoop;
@@ -73,7 +89,6 @@ public class PasswordValidator {
 					for (char a : allowedUpper) {
 				
 						if (c == a) {
-							System.out.println("Checking password character c: "+ c + ", against character a: "+ a);
 							thisCharAllowed = true;
 							// move to next character in password, as this character is known to be valid
 							break checkArraysLoop;
@@ -88,7 +103,6 @@ public class PasswordValidator {
 					for (char a : allowedLower) {
 				
 						if (c == a) {
-							System.out.println("Checking password character c: "+ c + ", against character a: "+ a);
 							thisCharAllowed = true;
 							// move to next character in password, as this character is known to be valid
 							break checkArraysLoop;
@@ -103,7 +117,6 @@ public class PasswordValidator {
 					for (char a : allowedDigits) {
 				
 						if (c == a) {
-							System.out.println("Checking password character c: "+ c + ", against character a: "+ a);
 							thisCharAllowed = true;
 							// move to next character in password, as this character is known to be valid
 							break checkArraysLoop;
@@ -118,6 +131,8 @@ public class PasswordValidator {
 				 * The entire password is therefore NOT valid.
 				 */
 				if (!thisCharAllowed) {
+					LOGGER.info("----- ERROR -----" +
+								"\ninvalid character: " + "\'" + c + "\'");
 					allCharactersAllowed = false;
 					break thisCharAllowedLoop;
 				}
@@ -135,33 +150,110 @@ public class PasswordValidator {
 	}	
 	
 	
+	/**
+	 * This method checks that the password contains the minimum number of digits, special, uppercase and lowercase characters defined by the PasswordValidator class.
+	 * @param password - This is the password (String) to be checked.
+	 * @return - A boolean:
+	 * <br>- true = The password meets the minimum requirements, it is valid.
+	 * <br>- false = The password does not meet the minimum requirements, it is not valid.
+	 */
+	public static boolean checkMinimumCharacterCount(String password) {
+		int countSpecial = 0;
+		int countUpper = 0;
+		int countLower = 0;
+		int countDigit = 0;
+		
+		for (char c : password.toCharArray()) {
+			
+			// check special character list
+			// ----------------------------
+			for (char a : allowedSpecial) {
+			
+				if (c == a) {
+					countSpecial++;
+				}
+				else {
+					continue;
+				}
+			}
+		
+			// check uppercase letter list
+			// ----------------------------
+			for (char a : allowedUpper) {
+		
+				if (c == a) {
+					countUpper++;
+				}
+				else {
+					continue;
+				}
+			}			
+		
+			// check lowercase letter list
+			// ----------------------------
+			for (char a : allowedLower) {
+		
+				if (c == a) {
+					countLower++;
+				}
+				else {
+					continue;
+				}
+			}		
+			
+			// check digit list
+			// ----------------------------
+			for (char a : allowedDigits) {
+			
+				if (c == a) {
+					countDigit++;
+				}
+				else {
+					continue;
+				}
+			}
+		} // checking characters in password
+		
+		// checking that each count is equal to or greater than the minimum requirements
+		if (countSpecial >= passwordMinSpecialCharacters && 
+				countUpper >= passwordMinUppercaseLetters &&
+				countLower >= passwordMinLowercaseLetters &&
+				countDigit >= passwordMinDigits) {
+			return true;
+		}
+		
+		else {
+			LOGGER.info("----- INVALID CHARACTER COUNTS -----" +
+					"\nspecial: " + countSpecial +
+					"\nupper: " + countUpper + 
+					"\nlower: "+countLower +
+					"\ndigit: "+countDigit);
+			return false;
+		}
+	}
+	
 	
 	//--------------------------------------
 	// Password Checker
 	//--------------------------------------
 	
-	/*
-	public boolean passwordChecker(String password) {
+	public static boolean passwordValidator(String password) {
+		boolean validPassword = true;
 		
-		int countUppercaseLetters = 0;
-		int countLowercaseLetters = 0;
-		int countSpecialCharacters = 0;
-		
-		// check password length is equal to or exceeds the minimum
-		if (!(password.length() >= passwordMinLength)) {
-			System.out.println("Your password only has " + password.length() + "characters. You must have at least " + passMinLength + "characters.";
-			return false;
+		if (!checkPasswordLength(password)) {
+			validPassword = false;
 		}
 		
-		for (char c : password.toCharArray()) {
-			// checking for invalid characters
-			if (!allowedSpecial.contains(c)) && !(allowedLower.contains(c)) && !(allowedUpper.contains(c)) && !(allowedDigits.contains(c)) {
-				System.out.println("Your password contains an invalid character: " + c + ".");
-				return false;
-			}
+		if (!checkAllowedCharactersOnly(password)) {
+			validPassword = false;
 		}
+		
+		if (!checkMinimumCharacterCount(password)) {
+			validPassword = false;
+		}
+		
+		return validPassword;
 	}
-	*/
 	
 	//--------------------------------------
 	// Password Getters
