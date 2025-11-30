@@ -4,6 +4,7 @@ import manager.PasswordValidator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -100,6 +101,21 @@ public class PasswordValidatorTest {
 	@DisplayName("Get Minimum Digits")
 	public void testMinDigits() {
 		assertEquals(1, PasswordValidator.getPasswordMinDigits());
+	}
+	
+	@Test
+	@DisplayName("Check Allowed Characters Only")
+	public void testCheckAllowedCharactersOnly() {
+		
+		assertTrue(PasswordValidator.checkAllowedCharactersOnly("Password.1234"));
+		assertTrue(PasswordValidator.checkAllowedCharactersOnly("AB_YZ@!mm"));
+		assertFalse(PasswordValidator.checkAllowedCharactersOnly("pass#not?allowed&&()"));
+		
+		// should return true as no invalid characters
+		assertTrue(PasswordValidator.checkAllowedCharactersOnly(""));
+		
+		// spaces are not valid characters
+		assertFalse(PasswordValidator.checkAllowedCharactersOnly(" "));
 	}
 
 }

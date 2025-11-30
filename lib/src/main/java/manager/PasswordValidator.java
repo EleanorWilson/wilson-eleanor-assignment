@@ -18,7 +18,7 @@ public class PasswordValidator {
 	private static final int passwordMinDigits = 1;
 	
 	// char[] lists of valid characters accepted in the password
-	private static final char[] allowedSpecial = {'.' , ',' , ':' , '-', '_' , '!' };
+	private static final char[] allowedSpecial = {'.' , ',' , ':' , '-', '_' , '!', '@' };
 	private static final char[] allowedLower = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 	private static final char[] allowedUpper = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 	private static final char[] allowedDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -38,10 +38,10 @@ public class PasswordValidator {
 	 * If there are any invalid characters in the password, the method returns false.
 	 * @param password - This is the String (password) to be checked.
 	 * @return - A boolean:
-	 * <br>- true = All characters in the password are valid
-	 * <br>- false = There are at least 
+	 * <br>- true = All characters in the password are valid.
+	 * <br>- false = There is at least one character that is not valid.
 	 */
-	public boolean checkAllowedCharactersOnly(String password) {
+	public static boolean checkAllowedCharactersOnly(String password) {
 		boolean allCharactersAllowed = true;
 		
 		// this loop checks each character in the password
@@ -58,6 +58,7 @@ public class PasswordValidator {
 					for (char a : allowedSpecial) {
 				
 						if (c == a) {
+							System.out.println("Checking password character c: "+ c + ", against character a: "+ a);
 							thisCharAllowed = true;
 							// move to next character in password, as this character is known to be valid
 							break checkArraysLoop;
@@ -72,6 +73,7 @@ public class PasswordValidator {
 					for (char a : allowedUpper) {
 				
 						if (c == a) {
+							System.out.println("Checking password character c: "+ c + ", against character a: "+ a);
 							thisCharAllowed = true;
 							// move to next character in password, as this character is known to be valid
 							break checkArraysLoop;
@@ -86,6 +88,7 @@ public class PasswordValidator {
 					for (char a : allowedLower) {
 				
 						if (c == a) {
+							System.out.println("Checking password character c: "+ c + ", against character a: "+ a);
 							thisCharAllowed = true;
 							// move to next character in password, as this character is known to be valid
 							break checkArraysLoop;
@@ -100,6 +103,7 @@ public class PasswordValidator {
 					for (char a : allowedDigits) {
 				
 						if (c == a) {
+							System.out.println("Checking password character c: "+ c + ", against character a: "+ a);
 							thisCharAllowed = true;
 							// move to next character in password, as this character is known to be valid
 							break checkArraysLoop;
