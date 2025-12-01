@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.*;
 
+import manager.PasswordValidator;
+
 public class SignUp {
 	
 	// Adding a logger
@@ -14,137 +16,136 @@ public class SignUp {
 	private static Scanner keyboard = new Scanner(System.in);
 	
 	public static void main(String[] args) {
+		
+		/*
 		int month = inputMonthOfBirth();
 		System.out.println("Echo: "+ month);
 		
 		int year = inputYearOfBirth();
 		System.out.println("Echo: "+ year);
+		*/
 		
+		SignUp();
 	}
 	
-	/*
-	public static void main(String[] args) {
-		Scanner keyboard = new Scanner(System.in);
-		
-		// name
-		System.out.println("Hi, new user! What is your first name?");
-		String firstName = keyboard.nextLine();
-		System.out.println("Hi, "+firstName+"! What is your surname?");
-		String lastName = keyboard.nextLine();
-		
-		// employment info
-		System.out.println("Which company do you work for, "+firstName+"?");
-		String companyName = keyboard.nextLine();
-		System.out.println("How many years have you worked for "+companyName+"?");
-		int companyYears = Integer.parseInt(keyboard.nextLine());
-		
-		// change greeting singular year or plural years
-		String yearGreet;
-		if (companyYears == 1) {
-			yearGreet = "year";
-		}
-		else {
-			yearGreet = "years";
-		}
-		
-		// Greeting
-		System.out.println("Thanks, I have all the info I need.");
-		System.out.println("Welcome to the programme, "+firstName+" "+lastName+". Congratulations on working for "+companyName+" for "+companyYears+" "+yearGreet+".");
-		System.out.println("Now, let's begin...");
-		
-		// Menu Options Hash Map - for practice with hashmaps
-		HashMap<Integer, String> menuOptions = new HashMap<Integer, String>();
-		menuOptions.put(1, "Lentil Dhaal");
-		menuOptions.put(2, "Beyond Burger");
-		menuOptions.put(3, "Vegan Bolognese");
-		menuOptions.put(4, "Tabbouleh");
-		
-		// Ask user to pick menu option
-		System.out.println("Please select an option from the menu below:");
-		for (Integer i : menuOptions.keySet()) {
-			System.out.println("Option "+i+": "+menuOptions.get(i));
-		}
-		System.out.println("Enter the number of the option you want.");
-		int menuChoice = 1;
-		
-		
-		// Handling invalid options
-		while (true) {
-			menuChoice = Integer.valueOf(keyboard.nextLine());
-			if (!(menuChoice > 0) && !(menuChoice < 5)) {
-				System.out.println("You have entered an invalid option, please enter a number between 1 and 4.");
-			}
-			else {
-				break;
-			}
-		}
-		
-		// Printing user's selection
-		System.out.println("Great, "+firstName+"! You have selected option "+menuChoice+", "+menuOptions.get(menuChoice)+"!");
-		
-		// Loop to allow user to see data they have entered:
-		while (true) {
-			System.out.println("Choose an option");
-			System.out.println("Option 1: Show your name");
-			System.out.println("Option 2: Print your company & how long you have worked for them");
-			System.out.println("Option 3: Show your food menu option");
-			
-			// User input
-			int choice2 = Integer.valueOf(keyboard.nextLine());
-			switch (choice2) {
-				case 1: {
-					option1(firstName, lastName); break;
-				}
-				case 2: {
-					option2(companyName, companyYears); break;
-				}
-				case 3: {
-					option3(menuChoice, menuOptions); break;
-				}
-				default: { System.out.println("You have selected an invalid option"); break;}
-			}
-			
-			// go again?
-			System.out.println("Do you want to select another option? Yes or no?");
-			
-			// Only check user input for first letter (y or n)
-			String choice3 = keyboard.nextLine().toLowerCase();
-			if (choice3.charAt(0) == 'n') {
-				break;
-			}
-			else {
-				continue;
-			}
-		} // while loop
-		
-		System.out.println("Thank you for using the programme, "+firstName+". See you next time!");
-		keyboard.close();
-	}
 	
-	// Option 1 - do something menu
-	private static void option1(String firstName, String lastName) {
-		System.out.println("Your name is "+firstName+" "+lastName);
-	}
-	
-	// Option 2 - do something menu
-	private static void option2(String companyName, int companyYears) {
-		System.out.println("You have worked for "+companyName+" for "+companyYears+" years.");
-	}
-	
-	// Option 3 - do something menu
-	private static void option3(int menuChoice, HashMap<Integer, String> menuOptions) {
-		System.out.println("You have selected option "+menuChoice+", "+menuOptions.get(menuChoice)+ ".");
-	}
-	
-	*/
-	
-	public void SignUp() {
+
+	/**
+	 * This method takes inputs from the user (first name, last name, etc) and creates a student object based on these inputs.
+	 */
+	public static void SignUp() {
 		System.out.println("Welcome new user!");
 		
 		String first = inputFirst();
 		String last = inputLast();
+		int yearOfBirth = inputYearOfBirth();
+		int monthOfBirth = inputMonthOfBirth();
+		int dayOfBirth = inputDayOfBirth();
+		String subject = inputSubject();
+		int yearOfStudy = inputYearOfStudy();
 		
-	}
+		// this while loop allows users to see what they have entered and edit their details as needed
+		editDetails:
+		while (true) {
+			
+			System.out.println("Let's check your details are correct: ");
+		
+			// Hash Map to Hold Student Details
+			HashMap<Integer, String> signUpDetails = new HashMap<Integer, String>();
+			signUpDetails.put(1, "First Name: "+first);
+			signUpDetails.put(2, "Last Name: "+last);
+			signUpDetails.put(3, "Birth Year: "+yearOfBirth);
+			signUpDetails.put(4, "Birth Month: "+monthOfBirth);
+			signUpDetails.put(5, "Birth Day: "+dayOfBirth);
+			signUpDetails.put(6, "Subject of Study: "+subject);
+			signUpDetails.put(7, "Year of Study: "+yearOfStudy);
+			
+			// Ask user to pick menu option
+			for (Integer i : signUpDetails.keySet()) {
+				System.out.println(i+". "+signUpDetails.get(i));
+			}
+			System.out.println("If any of these details are incorrect, please enter the number you wish to change. If everything is correct, please enter '0'.\n");
+			
+			
+			// Handling invalid options
+			handlingInput:
+			while (true) {
+				try {
+					int userChoice = Integer.valueOf(keyboard.nextLine());
+					
+					switch (userChoice) {
+						case 0: {
+							break editDetails;
+						}
+						case 1: {
+							first = inputFirst();
+							break handlingInput;
+						}
+						case 2: {
+							last = inputLast();
+							break handlingInput;
+						}
+						case 3: {
+							yearOfBirth = inputYearOfBirth();
+							break handlingInput;
+						}
+						case 4: {
+							monthOfBirth = inputMonthOfBirth();
+							break handlingInput;
+						}
+						case 5: {
+							dayOfBirth = inputDayOfBirth();
+							break handlingInput;
+						}
+						case 6: {
+							subject = inputSubject();
+							break handlingInput;
+						}
+						case 7: {
+							yearOfStudy = inputYearOfStudy();
+							break handlingInput;
+						}
+					} // switch end
+				}
+				catch (Exception e) {
+					LOGGER.info("Invalid input for edit details menu");
+				}
+			} // handlingInput Loop
+		} // editDetails Loop
+		
+		
+		// Prompting user to enter a password.
+		System.out.println("Welcome, " + first + "! Time to choose a password for your account.");
+		String password;
+		
+		passwordChecker:
+		while (true) {
+			
+			printPasswordRules();
+			
+			System.out.println("\nPlease choose a password:\n");
+			password = keyboard.nextLine();
+			System.out.println("\nPlease re-enter your password:\n");
+			if (password.equals(keyboard.nextLine())) {
+				if (PasswordValidator.passwordValidator(password)) {
+					break passwordChecker;
+				}
+				else {
+					System.out.println("Your password is invalid, try again.");
+				}
+			}
+			else {
+				System.out.println("Your password does not match, try again.");
+			}
+		} // passwordChecker Loop
+		
+		// prompting the user to enter a memorable word
+		
+		System.out.println("Please choose a memorable word to remember your password.");
+		String memorableWord;
+		
+		
+	} // signUp Method
 	
 	
 	//--------------------------------------
@@ -161,6 +162,8 @@ public class SignUp {
 			try {
 				System.out.println("What is your first name?");
 				first = keyboard.nextLine().toLowerCase();
+				// reformatting to capitalise the first letter
+				first = first.substring(0,1).toUpperCase() + first.substring(1,first.length());
 				break;
 			}
 			catch (Exception e) {
@@ -180,6 +183,8 @@ public class SignUp {
 			try {
 				System.out.println("What is your last name?");
 				last = keyboard.nextLine().toLowerCase();
+				// reformatting to capitalise the first letter
+				last = last.substring(0,1).toUpperCase() + last.substring(1,last.length());
 				break;
 			}
 			catch (Exception e) {
@@ -288,6 +293,8 @@ public class SignUp {
 			try {
 				System.out.println("Which subject are you studying?");
 				subject = keyboard.nextLine().toLowerCase();
+				// reformatting to capitalise the first letter
+				subject = subject.substring(0,1).toUpperCase() + subject.substring(1,subject.length());
 				break;
 			}
 			catch (Exception e) {
@@ -328,6 +335,22 @@ public class SignUp {
 		return year;
 	}
 	
+	/**
+	 * This method prints the minimum requirements for a password to be considered.
+	 */
+	public static void printPasswordRules() {
+		System.out.println("\nYour password must be at least " + PasswordValidator.getPasswordMinLength() + " characters long.\n" +
+				"\nIt must contain at least: \n- " + PasswordValidator.getPasswordMinUppercaseLetters() + " uppercase letter(s)" +
+				"\n- " + PasswordValidator.getPasswordMinDigits() + " digit(s)" +
+				"\n- " + PasswordValidator.getPasswordMinLowercaseLetters() + " lowercase letter(s)" +
+				"\n- " + PasswordValidator.getPasswordMinSpecialCharacters() + " special character(s)" + 
+				"\n\nOnly the following special characters are allowed: ");
 		
+		char[] allowedSpecial = PasswordValidator.getValidSpecialCharacters();
+		for (char c : allowedSpecial) {
+			System.out.print(c+ " ");
+		}
+		System.out.println();
+	}
 	
 }
