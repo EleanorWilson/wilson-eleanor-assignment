@@ -20,13 +20,18 @@ import java.io.IOException;
 
 public class Database {
 	
-	public ArrayList<ArrayList<String>> studentDatabase;
+	private ArrayList<ArrayList<String>> studentDatabaseArray;
 	
 	// variable to store file path for student dataset
-	public String filePath;
+	private String filePath;
 	
 	// variable to store file for dataset
-	public File studentDatabaseFile;
+	private File studentDatabaseFile;
+	
+	//--------------------------------------
+	// constructor
+	//--------------------------------------
+	
 	
 	/** 
 	 * @Database
@@ -35,19 +40,23 @@ public class Database {
 	
 	public Database() {
 		// creating a file variable with student database txt file, must use src/ path
-		setStudentDatabaseFile(this.filePath);
+		setFilePath(this.filePath);
+		setStudentDatabaseFile(new File(filePath));
 		
 		// calling method to turn data in studentData into list of lists
-		ArrayList<ArrayList<String>> studentDatabase = getStudentDataFromFile(studentDatabaseFile);
+		ArrayList<ArrayList<String>> studentDatabaseArray = getStudentDataFromFile(studentDatabaseFile);
 			
 		/* Accessing data in list of lists
 		 * Student = Child list (each student list with all their data points)
 		 * Datum = data in student list
 		 */
 				
-		this.studentDatabase = studentDatabase;
+		this.studentDatabaseArray = studentDatabaseArray;
 	}
 	
+	//--------------------------------------
+	// methods
+	//--------------------------------------
 	
 	/**
 	 * @getStudentDataFromFile
@@ -85,21 +94,13 @@ public class Database {
 		return studentData;		
 	}
 
-	/**
-	 * @setFilePath
-	 * This setter is mainly to allow for testing as the file path of the student database is unlikely to change.
-	 * @param filePath
-	 * This parameter should be the full file path of the student database txt/csv file.<br>E.g. "src/userData/studentdatabase.txt".
-	 */
+	//--------------------------------------
+	// getters
+	//--------------------------------------
 	
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-		setStudentDatabaseFile(this.filePath);
-	}
-
 	/**
-	 * @getFilePath
-	 * This getter allows you to check what the current file path is set to. Could be helpful for debugging.
+	 * Method to return file path.
+	 * @return File path (String)
 	 */
 	
 	public String getFilePath() {
@@ -107,23 +108,52 @@ public class Database {
 	}
 	
 	/**
-	 * @setStudentDatabaseFile
-	 * Method to convert filePath String to file
-	 * @param filePath
-	 * Requires the string variable filePath in the form "src/..."
-	 */
-	
-	public void setStudentDatabaseFile(String filePath) {
-		this.studentDatabaseFile = new File(filePath);
-	}
-	
-	/**
-	 * @getStudentDatabaseFile
 	 * Method to return StudentDatabase File
+	 * @return Student Database File (File type)
 	 */
 	
 	public File getStudentDatabaseFile() {
 		return this.studentDatabaseFile;
+	}
+	
+	/**
+	 * Method to get student database array.
+	 * @return Student Database Array (ArrayList<ArrayList<String>> type)
+	 */
+	public ArrayList<ArrayList<String>> getStudentDatabaseArray() {
+		return this.studentDatabaseArray;
+	}
+	
+	//--------------------------------------
+	// setters
+	//--------------------------------------
+	
+	/**
+	 * This setter is mainly to allow for testing as the file path of the student database is unlikely to change.
+	 * @param filePath
+	 * This parameter should be the full file path of the student database txt/csv file.
+	 * <br>E.g. "src/userData/studentdatabase.txt".
+	 */
+	
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	
+	/**
+	 * This setter allows student Database File to be set, using File.
+	 * @param studentDatabaseFile (File type)
+	 */
+	
+	public void setStudentDatabaseFile(File studentDatabaseFile) {
+		this.studentDatabaseFile = studentDatabaseFile;
+	}
+	
+	/**
+	 * This setter allows studentDatabaseArray to be set.
+	 * @param studentDatabaseArray (ArrayList<ArrayList<String>> type)
+	 */
+	public void setStudentDatabaseArray(ArrayList<ArrayList<String>> studentDatabaseArray) {
+		this.studentDatabaseArray = studentDatabaseArray;
 	}
 	
 } // class
