@@ -1,10 +1,7 @@
 package userData;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.logging.*;
 
-
-import manager.PasswordValidator;
 
 
 /**
@@ -103,7 +100,12 @@ public class Student {
 	public Calendar generateDob(int year, int month, int day) {
 		Calendar dob = Calendar.getInstance();
 		// Months in calendar data type begin at 0, therefore the month integer must be reduced by 1.
-		dob.set(year, month-1, day);
+		try {
+			dob.set(year, month-1, day);
+		}
+		catch (Exception e) {
+			LOGGER.info("Unable to resolve integer inputs to date");
+		}
 		return dob;
 	}
 	
