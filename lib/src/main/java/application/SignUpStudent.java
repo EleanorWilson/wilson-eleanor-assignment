@@ -1,39 +1,33 @@
 package application;
 
+import java.io.IOException;
 import java.time.Year;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.*;
 
 import manager.PasswordValidator;
+import userData.Student;
+import manager.FileHandler;
 
-public class SignUp {
+public class SignUpStudent {
+	
+	public static void main(String[] args) throws IOException {
+		// tests
+	}
 	
 	// Adding a logger
-	private static Logger LOGGER = Logger.getLogger(SignUp.class.getName());
+	private static Logger LOGGER = Logger.getLogger(SignUpStudent.class.getName());
 	
 	// Adding a new scanner
 	private static Scanner keyboard = new Scanner(System.in);
 	
-	public static void main(String[] args) {
-		
-		/*
-		int month = inputMonthOfBirth();
-		System.out.println("Echo: "+ month);
-		
-		int year = inputYearOfBirth();
-		System.out.println("Echo: "+ year);
-		*/
-		
-		SignUp();
-	}
-	
-	
 
 	/**
 	 * This method takes inputs from the user (first name, last name, etc) and creates a student object based on these inputs.
+	 * @throws IOException - if fileHandler path not valid
 	 */
-	public static void SignUp() {
+	public static void signUpStudent() throws IOException {
 		System.out.println("Welcome new user!");
 		Scanner keyboard = new Scanner(System.in);
 		
@@ -42,7 +36,7 @@ public class SignUp {
 		int yearOfBirth = inputYearOfBirth(keyboard);
 		int monthOfBirth = inputMonthOfBirth(keyboard);
 		int dayOfBirth = inputDayOfBirth(keyboard);
-		String subject = inputSubject(keyboard);
+		String subjectStudying = inputSubjectStudying(keyboard);
 		int yearOfStudy = inputYearOfStudy(keyboard);
 		
 		// this while loop allows users to see what they have entered and edit their details as needed
@@ -58,7 +52,7 @@ public class SignUp {
 			signUpDetails.put(3, "Birth Year: "+yearOfBirth);
 			signUpDetails.put(4, "Birth Month: "+monthOfBirth);
 			signUpDetails.put(5, "Birth Day: "+dayOfBirth);
-			signUpDetails.put(6, "Subject of Study: "+subject);
+			signUpDetails.put(6, "Subject of Study: "+subjectStudying);
 			signUpDetails.put(7, "Year of Study: "+yearOfStudy);
 			
 			// Ask user to pick menu option
@@ -99,7 +93,7 @@ public class SignUp {
 							break handlingInput;
 						}
 						case 6: {
-							subject = inputSubject(keyboard);
+							subjectStudying = inputSubjectStudying(keyboard);
 							break handlingInput;
 						}
 						case 7: {
@@ -144,7 +138,34 @@ public class SignUp {
 		
 		System.out.println("Please choose a memorable word to remember your password.");
 		String memorableWord;
+		memorableWord = keyboard.nextLine();
 		
+		System.out.println("Now that you have entered your details & chosen you password and memorable word. Let's save those to our database!");
+		
+		// setting student data
+		Student newStudent = new Student();
+		newStudent.setGenerateId();
+		newStudent.setFirst(first);
+		newStudent.setLast(last);
+		newStudent.setGenerateEmail();
+		newStudent.setYearOfBirth(yearOfBirth);
+		newStudent.setMonthOfBirth(monthOfBirth);
+		newStudent.setDayOfBirth(dayOfBirth);
+		newStudent.setSubjectStudying(subjectStudying);
+		newStudent.setYearOfStudy(yearOfStudy);
+		newStudent.setPassword(password);
+		newStudent.setMemorableWord(memorableWord);
+		
+		try {
+			FileHandler studentFile = new FileHandler("/studentDatabase.txt");
+			studentFile.writeFileNewEntry(newStudent);
+			System.out.println("Success! Your Student ID is: " + newStudent.getId() + 
+					"\nYour Student Email is: " + newStudent.getEmail() +
+					"\nDo not forget these details, you will need them to login.");
+		}
+		catch (Exception e) {
+			LOGGER.warning("Unable to add data to file");
+		}
 		
 	} // signUp Method
 	
@@ -288,21 +309,21 @@ public class SignUp {
 	 * This method prompts the user to enter their Subject of study.
 	 * @return subject (String)
 	 */	
-	public static String inputSubject(Scanner keyboard) {
-		String subject = "";
+	public static String inputSubjectStudying(Scanner keyboard) {
+		String subjectStudying = "";
 		while (true) {
 			try {
 				System.out.println("Which subject are you studying?");
-				subject = keyboard.nextLine().toLowerCase();
+				subjectStudying = keyboard.nextLine().toLowerCase();
 				// reformatting to capitalise the first letter
-				subject = subject.substring(0,1).toUpperCase() + subject.substring(1,subject.length());
+				subjectStudying = subjectStudying.substring(0,1).toUpperCase() + subjectStudying.substring(1,subjectStudying.length());
 				break;
 			}
 			catch (Exception e) {
 				LOGGER.info("Invalid input");
 			}
 		}
-		return subject;
+		return subjectStudying;
 	}
 	
 	

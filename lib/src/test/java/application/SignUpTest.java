@@ -1,5 +1,5 @@
 package application;
-import application.SignUp;
+import application.SignUpStudent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -63,34 +63,34 @@ public class SignUpTest {
     	String testString = "namehere" ;
     	testString = testString.toLowerCase().substring(0,1).toUpperCase() + testString.substring(1,testString.length());
     	Scanner keyboard = new Scanner(testString);
-    	SignUp.inputFirst(keyboard);
+    	SignUpStudent.inputFirst(keyboard);
     	assertEquals(testString, getOutput());
     	
     	// test string with \n newline character
     	testString = "0~'d\n" ;
     	testString = testString.toLowerCase().substring(0,1).toUpperCase() + testString.substring(1,testString.length());
     	keyboard = new Scanner(testString);
-    	SignUp.inputFirst(keyboard);
+    	SignUpStudent.inputFirst(keyboard);
     	assertEquals(testString, getOutput());
     	
     	// test string with ' ' single quotes
     	testString = "*'DScxm\\mdsjfjknl88980bbf@sd'";
     	testString = testString.toLowerCase().substring(0,1).toUpperCase() + testString.substring(1,testString.length());
     	keyboard = new Scanner(testString);
-    	SignUp.inputFirst(keyboard);
+    	SignUpStudent.inputFirst(keyboard);
     	assertEquals(testString, getOutput());
     	
     	// test empty string
     	testString = "" ;
     	keyboard = new Scanner(testString);
-    	SignUp.inputFirst(keyboard);
+    	SignUpStudent.inputFirst(keyboard);
     	assertEquals(testString, getOutput());
     	
     	// testing spaces and tabs
     	testString = " 	 " ;
     	testString = testString.toLowerCase().substring(0,1).toUpperCase() + testString.substring(1,testString.length());
     	keyboard = new Scanner(testString);
-    	SignUp.inputFirst(keyboard);
+    	SignUpStudent.inputFirst(keyboard);
     	assertEquals(testString, getOutput());
     }
     
@@ -99,34 +99,34 @@ public class SignUpTest {
     	String testString = "namehere" ;
     	testString = testString.toLowerCase().substring(0,1).toUpperCase() + testString.substring(1,testString.length());
     	Scanner keyboard = new Scanner(testString);
-    	SignUp.inputLast(keyboard);
+    	SignUpStudent.inputLast(keyboard);
     	assertEquals(testString, getOutput());
     	
     	// test string with \n newline character
     	testString = "0~'d\n" ;
     	testString = testString.toLowerCase().substring(0,1).toUpperCase() + testString.substring(1,testString.length());
     	keyboard = new Scanner(testString);
-    	SignUp.inputLast(keyboard);
+    	SignUpStudent.inputLast(keyboard);
     	assertEquals(testString, getOutput());
     	
     	// test string with ' ' single quotes
     	testString = "*'DScxm\\mdsjfjknl88980bbf@sd'";
     	testString = testString.toLowerCase().substring(0,1).toUpperCase() + testString.substring(1,testString.length());
     	keyboard = new Scanner(testString);
-    	SignUp.inputLast(keyboard);
+    	SignUpStudent.inputLast(keyboard);
     	assertEquals(testString, getOutput());
     	
     	// test empty string
     	testString = "" ;
     	keyboard = new Scanner(testString);
-    	SignUp.inputLast(keyboard);
+    	SignUpStudent.inputLast(keyboard);
     	assertEquals(testString, getOutput());
     	
     	// testing spaces and tabs
     	testString = " 	 " ;
     	testString = testString.toLowerCase().substring(0,1).toUpperCase() + testString.substring(1,testString.length());
     	keyboard = new Scanner(testString);
-    	SignUp.inputLast(keyboard);
+    	SignUpStudent.inputLast(keyboard);
     	assertEquals(testString, getOutput());
     }
     
@@ -134,19 +134,19 @@ public class SignUpTest {
     	// test valid int
     	String testInt = "2000" ;
     	Scanner keyboard = new Scanner(testInt);
-    	SignUp.inputLast(keyboard);
+    	SignUpStudent.inputLast(keyboard);
     	assertEquals(testInt, getOutput());
     	
     	// test valid int
     	testInt = "2007" ;
     	keyboard = new Scanner(testInt);
-    	SignUp.inputLast(keyboard);
+    	SignUpStudent.inputLast(keyboard);
     	assertEquals(testInt, getOutput());
     	
     	// test valid int
     	testInt = "1925" ;
     	keyboard = new Scanner(testInt);
-    	SignUp.inputLast(keyboard);
+    	SignUpStudent.inputLast(keyboard);
     	assertEquals(testInt, getOutput());
     	
     	// test invalid int

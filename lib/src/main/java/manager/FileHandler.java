@@ -35,7 +35,7 @@ public class FileHandler {
 	 * File handler that takes the target file path as a string variable.
 	 * @param filePath - String variable with full file path name, e.g. "src/main/java/resources/fileName.txt"
 	 */
-	public FileHandler(String filePath) {
+	public FileHandler(String filePath) throws IOException {
 		this.filePath = filePath;
 		this.dataFile = createFile(this.filePath);
 		this.dataArray = readFiletoArray();
@@ -62,7 +62,7 @@ public class FileHandler {
 				LOGGER.info("File has been created.");
 			}
 			else {
-				System.out.println("File already exists");
+				LOGGER.info("File already exists (found file).");
 			}
 		}
 		
@@ -114,9 +114,11 @@ public class FileHandler {
 		String first = student.getFirst();
 		String last = student.getLast();
 		String email = student.getEmail();
-		String subject = student.getSubjectStudying();
+		String subjectStudying = student.getSubjectStudying();
 		int yearOfStudy = student.getYearOfStudy();
-		Calendar dob = student.getDob();
+		int yearOfBirth = student.getYearOfBirth();
+		int monthOfBirth = student.getMonthOfBirth();
+		int dayOfBirth = student.getDayOfBirth();
 		String password = student.getPassword();
 		String memorableWord = student.getMemorableWord();
 		
@@ -129,8 +131,9 @@ public class FileHandler {
 			
 			// writing student data in csv format
 			writer.write(id + "," + first + "," + last + "," + 
-					email + "," + subject + "," + yearOfStudy + "," +
-					dob + "," + password + "," + memorableWord);
+					email + "," + subjectStudying + "," + yearOfStudy + "," +
+					yearOfBirth + "," + monthOfBirth + "," + dayOfBirth + "," + 
+					password + "," + memorableWord + "\n");
 			LOGGER.info("File written succesfully");
 		}
 		

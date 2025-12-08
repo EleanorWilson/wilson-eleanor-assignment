@@ -1,15 +1,17 @@
 package application;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.*;
+import application.SignUpStudent;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// Adding logger
 		Logger LOGGER = Logger.getLogger(Main.class.getName());
 		Scanner keyboard = new Scanner(System.in);
 		
 		boolean isStudent;
-		boolean isNew;
+		boolean isNew = false;
 		
 		Page.welcome();
 		Page.staffOrStudent();
@@ -32,30 +34,67 @@ public class Main {
 			}
 		}
 		
+		//---------------------------
+		// run student page
+		//---------------------------
 		if (isStudent) {
+			
 			Page.newOrReturningStudent();
-		} else {
-			Page.newOrReturningStaff();
-		}
-		
-		// loop to find if person is new or returning
-		newOrReturningLoop:
-		while (true) {
-			String input = keyboard.nextLine().toLowerCase();
-			switch (input.charAt(0)) {
-				case 'y':
-					isNew = true;
-					break newOrReturningLoop;
-				case 'n':
-					isStudent = false;
-					break newOrReturningLoop;
-				default:
-					LOGGER.info("Invalid input");
-					System.out.println("You gave an invalid answer, please respond with 'yes' or 'no'.");
-					break;
+						
+			// loop to find if person is new or returning
+			newOrReturningLoop:
+			while (true) {
+				String input = keyboard.nextLine().toLowerCase();
+				switch (input.charAt(0)) {
+					case 'y':
+						isNew = true;
+						break newOrReturningLoop;
+					case 'n':
+						isNew = false;
+						break newOrReturningLoop;
+					default:
+						LOGGER.info("Invalid input");
+						System.out.println("You gave an invalid answer, please respond with 'yes' or 'no'.");
+						break;
+				}
 			}
+			
+			if (isNew) {
+				SignUpStudent.signUpStudent();
+			}
+			
+			
+		} 
+		
+		//---------------------------
+		// run staff page
+		//---------------------------
+		else {
+			
+			Page.newOrReturningStaff();
+						
+			// loop to find if person is new or returning
+			newOrReturningLoop:
+			while (true) {
+				String input = keyboard.nextLine().toLowerCase();
+				switch (input.charAt(0)) {
+					case 'y':
+						isNew = true;
+						break newOrReturningLoop;
+					case 'n':
+						isStudent = false;
+						break newOrReturningLoop;
+					default:
+						LOGGER.info("Invalid input");
+						System.out.println("You gave an invalid answer, please respond with 'yes' or 'no'.");
+						break;
+				}
+			}
+			
+			
 		}
 		
+
 		
 		
 		
