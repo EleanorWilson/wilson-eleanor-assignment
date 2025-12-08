@@ -66,7 +66,7 @@ public class FileHandler {
 			}
 		}
 		
-		catch (IOException e) {
+		catch (Exception e) {
 			LOGGER.warning("Error occurred when creating file");
 			e.printStackTrace();
 		}
@@ -114,7 +114,7 @@ public class FileHandler {
 		String first = student.getFirst();
 		String last = student.getLast();
 		String email = student.getEmail();
-		String subject = student.getSubject();
+		String subject = student.getSubjectStudying();
 		int yearOfStudy = student.getYearOfStudy();
 		Calendar dob = student.getDob();
 		String password = student.getPassword();
@@ -134,7 +134,7 @@ public class FileHandler {
 			LOGGER.info("File written succesfully");
 		}
 		
-		catch (IOException e) {
+		catch (Exception e) {
 			LOGGER.warning("File cannot be written to");
 		}
 		
@@ -143,7 +143,7 @@ public class FileHandler {
 				try {
 					writer.close();
 				}
-				catch (IOException e) {
+				catch (Exception e) {
 					LOGGER.warning("Unable to close writer");
 				}
 			}
@@ -161,7 +161,7 @@ public class FileHandler {
 		String first = student.getFirst();
 		String last = student.getLast();
 		String email = student.getEmail();
-		String subject = student.getSubject();
+		String subject = student.getSubjectStudying();
 		int yearOfStudy = student.getYearOfStudy();
 		Calendar dob = student.getDob();
 		String password = student.getPassword();
@@ -194,8 +194,8 @@ public class FileHandler {
 			}
 			*/
 		}
-		catch (IOException e) {
-			
+		catch (Exception e) {
+			LOGGER.warning("Error overwriting student data");
 		}
 	}
 	

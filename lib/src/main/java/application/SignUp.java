@@ -35,14 +35,15 @@ public class SignUp {
 	 */
 	public static void SignUp() {
 		System.out.println("Welcome new user!");
+		Scanner keyboard = new Scanner(System.in);
 		
-		String first = inputFirst();
-		String last = inputLast();
-		int yearOfBirth = inputYearOfBirth();
-		int monthOfBirth = inputMonthOfBirth();
-		int dayOfBirth = inputDayOfBirth();
-		String subject = inputSubject();
-		int yearOfStudy = inputYearOfStudy();
+		String first = inputFirst(keyboard);
+		String last = inputLast(keyboard);
+		int yearOfBirth = inputYearOfBirth(keyboard);
+		int monthOfBirth = inputMonthOfBirth(keyboard);
+		int dayOfBirth = inputDayOfBirth(keyboard);
+		String subject = inputSubject(keyboard);
+		int yearOfStudy = inputYearOfStudy(keyboard);
 		
 		// this while loop allows users to see what they have entered and edit their details as needed
 		editDetails:
@@ -78,31 +79,31 @@ public class SignUp {
 							break editDetails;
 						}
 						case 1: {
-							first = inputFirst();
+							first = inputFirst(keyboard);
 							break handlingInput;
 						}
 						case 2: {
-							last = inputLast();
+							last = inputLast(keyboard);
 							break handlingInput;
 						}
 						case 3: {
-							yearOfBirth = inputYearOfBirth();
+							yearOfBirth = inputYearOfBirth(keyboard);
 							break handlingInput;
 						}
 						case 4: {
-							monthOfBirth = inputMonthOfBirth();
+							monthOfBirth = inputMonthOfBirth(keyboard);
 							break handlingInput;
 						}
 						case 5: {
-							dayOfBirth = inputDayOfBirth();
+							dayOfBirth = inputDayOfBirth(keyboard);
 							break handlingInput;
 						}
 						case 6: {
-							subject = inputSubject();
+							subject = inputSubject(keyboard);
 							break handlingInput;
 						}
 						case 7: {
-							yearOfStudy = inputYearOfStudy();
+							yearOfStudy = inputYearOfStudy(keyboard);
 							break handlingInput;
 						}
 					} // switch end
@@ -121,7 +122,7 @@ public class SignUp {
 		passwordChecker:
 		while (true) {
 			
-			printPasswordRules();
+			printPasswordRules(keyboard);
 			
 			System.out.println("\nPlease choose a password:\n");
 			password = keyboard.nextLine();
@@ -156,7 +157,7 @@ public class SignUp {
 	 * This method prompts the user to enter their first name.
 	 * @return first name (String)
 	 */
-	public static String inputFirst() {
+	public static String inputFirst(Scanner keyboard) {
 		String first = "";
 		while (true) {
 			try {
@@ -177,7 +178,7 @@ public class SignUp {
 	 * This method prompts the user to enter their last name.
 	 * @return last name (String)
 	 */
-	public static String inputLast() {
+	public static String inputLast(Scanner keyboard) {
 		String last = "";
 		while (true) {
 			try {
@@ -198,7 +199,7 @@ public class SignUp {
 	 * This method prompts the user to enter their year of birth. It checks that the year is valid (i.e. the user is between 18 and 100 years old).
 	 * @return year of birth (int)
 	 */
-	public static int inputYearOfBirth() {
+	public static int inputYearOfBirth(Scanner keyboard) {
 		int yearToday = Year.now().getValue();
 		int year;
 		while (true) {
@@ -230,7 +231,7 @@ public class SignUp {
 	 * This method prompts the user to enter their month of birth. It checks that the month is valid (i.e. between 1 and 12)
 	 * @return month of birth (int)
 	 */
-	public static int inputMonthOfBirth() {
+	public static int inputMonthOfBirth(Scanner keyboard) {
 		int month;
 		while (true) {
 			try {
@@ -258,7 +259,7 @@ public class SignUp {
 	 * This method prompts the user to enter their day of birth. It checks that the day is valid (i.e. between 1 and 31)
 	 * @return day of birth (int)
 	 */
-	public static int inputDayOfBirth() {
+	public static int inputDayOfBirth(Scanner keyboard) {
 		int day;
 		while (true) {
 			try {
@@ -287,7 +288,7 @@ public class SignUp {
 	 * This method prompts the user to enter their Subject of study.
 	 * @return subject (String)
 	 */	
-	public static String inputSubject() {
+	public static String inputSubject(Scanner keyboard) {
 		String subject = "";
 		while (true) {
 			try {
@@ -311,7 +312,7 @@ public class SignUp {
 	 * <br>- Year 7 = PhD (part-time) Final Year
 	 * @return day of birth (int)
 	 */
-	public static int inputYearOfStudy() {
+	public static int inputYearOfStudy(Scanner keyboard) {
 		int year;
 		while (true) {
 			try {
@@ -338,7 +339,7 @@ public class SignUp {
 	/**
 	 * This method prints the minimum requirements for a password to be considered.
 	 */
-	public static void printPasswordRules() {
+	public static void printPasswordRules(Scanner keyboard) {
 		System.out.println("\nYour password must be at least " + PasswordValidator.getPasswordMinLength() + " characters long.\n" +
 				"\nIt must contain at least: \n- " + PasswordValidator.getPasswordMinUppercaseLetters() + " uppercase letter(s)" +
 				"\n- " + PasswordValidator.getPasswordMinDigits() + " digit(s)" +

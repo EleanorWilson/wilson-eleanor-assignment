@@ -13,14 +13,14 @@ import org.junit.jupiter.api.DisplayName;
 // import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Student Tests")
-class StudentTest {
+@DisplayName("Staff Tests")
+class StaffTest {
 	
-	private Student test;
+	private Staff test;
 	
 	@BeforeEach
 	void setUp() {
-		test = new Student();
+		test = new Staff();
 	}
 	
 	
@@ -28,12 +28,12 @@ class StudentTest {
 	@DisplayName("Set & Get Email")
 	void testEmail() {
 		// set email # 1
-		test.setEmail("eleanor.wilson@stu.mmu.ac.uk");
-		assertEquals("eleanor.wilson@stu.mmu.ac.uk", test.getEmail());
+		test.setEmail("eleanor.wilson@mmu.ac.uk");
+		assertEquals("eleanor.wilson@mmu.ac.uk", test.getEmail());
 		
 		// set email # 2
-		test.setEmail("robert.ross@stu.mmu.ac.uk");
-		assertEquals("robert.ross@stu.mmu.ac.uk", test.getEmail());
+		test.setEmail("robert.ross@mmu.ac.uk");
+		assertEquals("robert.ross@mmu.ac.uk", test.getEmail());
 		
 		// set email # 3
 		test.setEmail("spaces and no at symbol");
@@ -58,21 +58,21 @@ class StudentTest {
 		test.setLast("Last");
 		test.setGenerateEmail();
 		
-		assertEquals("First.Last@stu.mmu.ac.uk", test.getEmail());
+		assertEquals("First.Last@mmu.ac.uk", test.getEmail());
 		
 		// test setting first and last to generate email test # 2
 		test.setFirst("Blah\n  ");
 		test.setLast("Test^^");
 		test.setGenerateEmail();
 		
-		assertEquals("Blah\n  .Test^^@stu.mmu.ac.uk", test.getEmail());
+		assertEquals("Blah\n  .Test^^@mmu.ac.uk", test.getEmail());
 		
 		// test setting first and last to generate email test # 3
 		test.setFirst("");
 		test.setLast("");
 		test.setGenerateEmail();
 		
-		assertEquals(".@stu.mmu.ac.uk", test.getEmail());	
+		assertEquals(".@mmu.ac.uk", test.getEmail());	
 		
 	}
 	
@@ -80,52 +80,52 @@ class StudentTest {
 	@DisplayName("Set & Get Subject")
 	void testSubject() {
 		// set subject no special characters # 1
-		test.setSubjectStudying("Mathematics");
-		assertEquals("Mathematics", test.getSubjectStudying());
+		test.setSubjectTaught("Mathematics");
+		assertEquals("Mathematics", test.getSubjectTaught());
 		
 		// set subject no special characters # 2
-		test.setSubjectStudying("English");
-		assertEquals("English", test.getSubjectStudying());
+		test.setSubjectTaught("English");
+		assertEquals("English", test.getSubjectTaught());
 		
 		// set subject no special characters # 3
-		test.setSubjectStudying("Physics");
-		assertEquals("Physics", test.getSubjectStudying());
+		test.setSubjectTaught("Physics");
+		assertEquals("Physics", test.getSubjectTaught());
 		
 		// set subject special characters - \n symbol
-		test.setSubjectStudying("  :'@..\\n\n");
-		assertEquals("  :'@..\\n\n", test.getSubjectStudying());
+		test.setSubjectTaught("  :'@..\\n\n");
+		assertEquals("  :'@..\\n\n", test.getSubjectTaught());
 		
 		// set subject special characters - *| symbols
-		test.setSubjectStudying("*| .. ");
-		assertEquals("*| .. ", test.getSubjectStudying());	
+		test.setSubjectTaught("*| .. ");
+		assertEquals("*| .. ", test.getSubjectTaught());	
 		
 		// set subject blank
-		test.setSubjectStudying("");
-		assertEquals("", test.getSubjectStudying());		
+		test.setSubjectTaught("");
+		assertEquals("", test.getSubjectTaught());		
 	}
 	
 	@Test
 	@DisplayName("Set & Get Year of Study")
 	void testYearOfStudy() {
 		// set valid year # 1
-		test.setYearOfStudy(1);
-		assertEquals(1, test.getYearOfStudy());
+		test.setYearsTeaching(1);
+		assertEquals(1, test.getYearsTeaching());
 		
 		// set valid year # 2
-		test.setYearOfStudy(7);
-		assertEquals(7, test.getYearOfStudy());
+		test.setYearsTeaching(7);
+		assertEquals(7, test.getYearsTeaching());
 		
 		// set valid year # 3
-		test.setYearOfStudy(3);
-		assertEquals(3, test.getYearOfStudy());
+		test.setYearsTeaching(3);
+		assertEquals(3, test.getYearsTeaching());
 		
 		// set year 0
-		test.setYearOfStudy(0);
-		assertEquals(0, test.getYearOfStudy());
+		test.setYearsTeaching(0);
+		assertEquals(0, test.getYearsTeaching());
 		
 		// set year -8
-		test.setYearOfStudy(-8);
-		assertEquals(-8, test.getYearOfStudy());
+		test.setYearsTeaching(-8);
+		assertEquals(-8, test.getYearsTeaching());
 	}
 	
 	
