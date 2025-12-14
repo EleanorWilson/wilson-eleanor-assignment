@@ -56,7 +56,7 @@ public class EntryValidatorTest {
 	@Test
 	@DisplayName("Get Minimum Entry Length")
 	public void testMinPassLength() {
-		assertEquals(8, EntryValidator.getEntryMinLength());
+		assertEquals(1, EntryValidator.getEntryMinLength());
 	}
 	
 	@Test

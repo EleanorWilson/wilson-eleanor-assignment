@@ -66,8 +66,8 @@ public class Person {
 	 * Returns an integer between 1 and 250 (inclusive) 
 	 */
 	public int generateId() {
-		// range of random number generated = 1 - 250
-		int id = (int)(Math.random()*251+1);
+		// range of random number generated = 1 - 1000
+		int id = (int)(Math.random()*1000+1);
 		return id;
 	}
 	

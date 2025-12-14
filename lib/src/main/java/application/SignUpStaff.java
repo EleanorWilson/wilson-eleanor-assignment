@@ -7,28 +7,28 @@ import java.util.Scanner;
 import java.util.logging.*;
 
 import manager.PasswordValidator;
-import userData.Student;
+import userData.Staff;
 import manager.EntryValidator;
-import manager.FileHandlerStudent;
+import manager.FileHandlerStaff;
 
-public class SignUpStudent {
+public class SignUpStaff {
 	
 	public static void main(String[] args) throws IOException {
 		// tests
 	}
 	
 	// Adding a logger
-	private static Logger LOGGER = Logger.getLogger(SignUpStudent.class.getName());
+	private static Logger LOGGER = Logger.getLogger(SignUpStaff.class.getName());
 	
 	// Adding a new scanner
 	private static Scanner keyboard = new Scanner(System.in);
 	
 
 	/**
-	 * This method takes inputs from the user (first name, last name, etc) and creates a student object based on these inputs.
+	 * This method takes inputs from the user (first name, last name, etc) and creates a Staff object based on these inputs.
 	 * @throws IOException - if fileHandler path not valid
 	 */
-	public static void signUpStudent() throws IOException {
+	public static void signUpStaff() throws IOException {
 		System.out.println("Welcome new user!");
 		Scanner keyboard = new Scanner(System.in);
 		
@@ -38,8 +38,8 @@ public class SignUpStudent {
 		int yearOfBirth;
 		int monthOfBirth;
 		int dayOfBirth;
-		String subjectStudying;
-		int yearOfStudy;
+		String SubjectTaught;
+		int YearsTeaching;
 		
 		// Getting inputs from user
 		
@@ -47,11 +47,11 @@ public class SignUpStudent {
 		 * First Name
 		 *****************************/
 		
-		studentFirstInputLoop:
+		StaffFirstInputLoop:
 		while (true) {
 			first = inputFirst(keyboard);
 			if (EntryValidator.entryValidator(first)) {
-				break studentFirstInputLoop;
+				break StaffFirstInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");
@@ -63,11 +63,11 @@ public class SignUpStudent {
 		 * Last Name
 		 *****************************/
 		
-		studentLastInputLoop:
+		StaffLastInputLoop:
 		while (true) {
 			last = inputLast(keyboard);
 			if (EntryValidator.entryValidator(last)) {
-				break studentLastInputLoop;
+				break StaffLastInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");
@@ -84,21 +84,21 @@ public class SignUpStudent {
 		
 		
 		/*****************************
-		 * University Study Details
+		 * University Teaching Details
 		 *****************************/
 		
-		studentSubjectInputLoop:
+		StaffSubjectInputLoop:
 		while (true) {
-			subjectStudying = inputSubjectStudying(keyboard);
-			if (EntryValidator.entryValidator(subjectStudying)) {
-				break studentSubjectInputLoop;
+			SubjectTaught = inputSubjectTaught(keyboard);
+			if (EntryValidator.entryValidator(SubjectTaught)) {
+				break StaffSubjectInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");
 			}
 		}
 		
-		yearOfStudy = inputYearOfStudy(keyboard);
+		YearsTeaching = inputYearsTeaching(keyboard);
 		
 		/*****************************
 		 * User Edit Data
@@ -110,15 +110,15 @@ public class SignUpStudent {
 			
 			System.out.println("Let's check your details are correct: ");
 		
-			// Hash Map to Hold Student Details
+			// Hash Map to Hold Staff Details
 			HashMap<Integer, String> signUpDetails = new HashMap<Integer, String>();
 			signUpDetails.put(1, "First Name: "+first);
 			signUpDetails.put(2, "Last Name: "+last);
 			signUpDetails.put(3, "Birth Year: "+yearOfBirth);
 			signUpDetails.put(4, "Birth Month: "+monthOfBirth);
 			signUpDetails.put(5, "Birth Day: "+dayOfBirth);
-			signUpDetails.put(6, "Subject of Study: "+subjectStudying);
-			signUpDetails.put(7, "Year of Study: "+yearOfStudy);
+			signUpDetails.put(6, "Subject of Study: "+SubjectTaught);
+			signUpDetails.put(7, "Year of Study: "+YearsTeaching);
 			
 			// Ask user to pick menu option
 			for (Integer i : signUpDetails.keySet()) {
@@ -158,11 +158,11 @@ public class SignUpStudent {
 							break handlingInput;
 						}
 						case 6: {
-							subjectStudying = inputSubjectStudying(keyboard);
+							SubjectTaught = inputSubjectTaught(keyboard);
 							break handlingInput;
 						}
 						case 7: {
-							yearOfStudy = inputYearOfStudy(keyboard);
+							YearsTeaching = inputYearsTeaching(keyboard);
 							break handlingInput;
 						}
 					} // switch end
@@ -214,11 +214,11 @@ public class SignUpStudent {
 		String memorableWord;
 		
 		// memorable word
-		studentMemorableWordInputLoop:
+		StaffMemorableWordInputLoop:
 		while (true) {
 			memorableWord = keyboard.nextLine();
 			if (EntryValidator.entryValidator(memorableWord)) {
-				break studentMemorableWordInputLoop;
+				break StaffMemorableWordInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");
@@ -230,39 +230,28 @@ public class SignUpStudent {
 		
 		
 		/*****************************
-		 * Creating Student Object
+		 * Creating Staff Object
 		 *****************************/
 		
-		Student newStudent = new Student();
-		newStudent.setGenerateId();
-		newStudent.setFirst(first);
-		newStudent.setLast(last);
-		newStudent.setGenerateEmail();
-		newStudent.setYearOfBirth(yearOfBirth);
-		newStudent.setMonthOfBirth(monthOfBirth);
-		newStudent.setDayOfBirth(dayOfBirth);
-		newStudent.setSubjectStudying(subjectStudying);
-		newStudent.setYearOfStudy(yearOfStudy);
-		newStudent.setPassword(password);
-		newStudent.setMemorableWord(memorableWord);
+		Staff newStaff = new Staff();
+		newStaff.setGenerateId();
+		newStaff.setFirst(first);
+		newStaff.setLast(last);
+		newStaff.setGenerateEmail();
+		newStaff.setYearOfBirth(yearOfBirth);
+		newStaff.setMonthOfBirth(monthOfBirth);
+		newStaff.setDayOfBirth(dayOfBirth);
+		newStaff.setSubjectTaught(SubjectTaught);
+		newStaff.setYearsTeaching(YearsTeaching);
+		newStaff.setPassword(password);
+		newStaff.setMemorableWord(memorableWord);
 		
 		try {
-			FileHandlerStudent studentFile = new FileHandlerStudent("./src/main/resources/studentDatabase.txt");
-			
-			// checking ID does not already exist, if it does, generate new ID
-			while (true) {
-				if (studentFile.idAlreadyExists(newStudent.getId())) {
-					newStudent.setGenerateId();
-				}
-				else {
-					break;
-				}
-			}
-			
-			studentFile.writeFileNewEntry(newStudent);
-			System.out.println("Success! Your Student ID is: " + newStudent.getId() + 
-					"\nYour Student Email is: " + newStudent.getEmail() +
-					"\nDo not forget your ID, you will need it to login.");
+			FileHandlerStaff StaffFile = new FileHandlerStaff("/StaffDatabase.txt");
+			StaffFile.writeFileNewEntry(newStaff);
+			System.out.println("Success! Your Staff ID is: " + newStaff.getId() + 
+					"\nYour Staff Email is: " + newStaff.getEmail() +
+					"\nDo not forget these details, you will need them to login.");
 		}
 		catch (Exception e) {
 			LOGGER.warning("Unable to add data to file");
@@ -410,21 +399,21 @@ public class SignUpStudent {
 	 * This method prompts the user to enter their Subject of study.
 	 * @return subject (String)
 	 */	
-	public static String inputSubjectStudying(Scanner keyboard) {
-		String subjectStudying = "";
+	public static String inputSubjectTaught(Scanner keyboard) {
+		String SubjectTaught = "";
 		while (true) {
 			try {
 				System.out.println("Which subject are you studying?");
-				subjectStudying = keyboard.nextLine().toLowerCase();
+				SubjectTaught = keyboard.nextLine().toLowerCase();
 				// reformatting to capitalise the first letter
-				subjectStudying = subjectStudying.substring(0,1).toUpperCase() + subjectStudying.substring(1,subjectStudying.length());
+				SubjectTaught = SubjectTaught.substring(0,1).toUpperCase() + SubjectTaught.substring(1,SubjectTaught.length());
 				break;
 			}
 			catch (Exception e) {
 				LOGGER.info("Invalid input");
 			}
 		}
-		return subjectStudying;
+		return SubjectTaught;
 	}
 	
 	
@@ -434,7 +423,7 @@ public class SignUpStudent {
 	 * <br>- Year 7 = PhD (part-time) Final Year
 	 * @return day of birth (int)
 	 */
-	public static int inputYearOfStudy(Scanner keyboard) {
+	public static int inputYearsTeaching(Scanner keyboard) {
 		int year;
 		while (true) {
 			try {

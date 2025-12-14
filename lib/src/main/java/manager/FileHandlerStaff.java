@@ -11,12 +11,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-import userData.Student;
+import userData.Staff;
 
-public class FileHandler {
+public class FileHandlerStaff {
 	
 	// Adding a logger
-	private Logger LOGGER = Logger.getLogger(FileHandler.class.getName());
+	private Logger LOGGER = Logger.getLogger(FileHandlerStaff.class.getName());
 	
 	private String filePath;
 	private File dataFile;
@@ -29,13 +29,13 @@ public class FileHandler {
 	/**
 	 * Empty constructor for file handler
 	 */
-	public FileHandler() {} 
+	public FileHandlerStaff() {} 
 	
 	/**
 	 * File handler that takes the target file path as a string variable.
 	 * @param filePath - String variable with full file path name, e.g. "src/main/java/resources/fileName.txt"
 	 */
-	public FileHandler(String filePath) throws IOException {
+	public FileHandlerStaff(String filePath) throws IOException {
 		this.filePath = filePath;
 		this.dataFile = createFile(this.filePath);
 		this.dataArray = readFiletoArray();
@@ -107,20 +107,20 @@ public class FileHandler {
 	/**
 	 * This method writes new data to file in csv format.
 	 * @param dataFile - File type variable, this is the target file to write data to.
-	 * @param student - Student object with the student data to write to file.
+	 * @param Staff - Staff object with the Staff data to write to file.
 	 */
-	public void writeFileNewEntry(Student student) {
-		int id = student.getId();
-		String first = student.getFirst();
-		String last = student.getLast();
-		String email = student.getEmail();
-		String subjectStudying = student.getSubjectStudying();
-		int yearOfStudy = student.getYearOfStudy();
-		int yearOfBirth = student.getYearOfBirth();
-		int monthOfBirth = student.getMonthOfBirth();
-		int dayOfBirth = student.getDayOfBirth();
-		String password = student.getPassword();
-		String memorableWord = student.getMemorableWord();
+	public void writeFileNewEntry(Staff Staff) {
+		int id = Staff.getId();
+		String first = Staff.getFirst();
+		String last = Staff.getLast();
+		String email = Staff.getEmail();
+		String SubjectTaught = Staff.getSubjectTaught();
+		int YearsTeaching = Staff.getYearsTeaching();
+		int yearOfBirth = Staff.getYearOfBirth();
+		int monthOfBirth = Staff.getMonthOfBirth();
+		int dayOfBirth = Staff.getDayOfBirth();
+		String password = Staff.getPassword();
+		String memorableWord = Staff.getMemorableWord();
 		
 		// Initialising a new writer
 		FileWriter writer = null;
@@ -129,9 +129,9 @@ public class FileHandler {
 			// Using FileWriter(File, boolean) and setting boolean to true, so data appends to end of file.
 			writer = new FileWriter(this.dataFile, true);
 			
-			// writing student data in csv format
+			// writing Staff data in csv format
 			writer.write(id + "," + first + "," + last + "," + 
-					email + "," + subjectStudying + "," + yearOfStudy + "," +
+					email + "," + SubjectTaught + "," + YearsTeaching + "," +
 					yearOfBirth + "," + monthOfBirth + "," + dayOfBirth + "," + 
 					password + "," + memorableWord + "\n");
 			LOGGER.info("File written succesfully");
@@ -155,20 +155,20 @@ public class FileHandler {
 	}
 	
 	/**
-	 * Method to overwrite existing student data, for example, when updating student information.
+	 * Method to overwrite existing Staff data, for example, when updating Staff information.
 	 * @param dataFile - File type variable, this is the target file to write data to.
-	 * @param student - Student object with the student data to write to file.
+	 * @param Staff - Staff object with the Staff data to write to file.
 	 */
-	public void overwriteStudentData(Student student) {
-		int id = student.getId();
-		String first = student.getFirst();
-		String last = student.getLast();
-		String email = student.getEmail();
-		String subject = student.getSubjectStudying();
-		int yearOfStudy = student.getYearOfStudy();
-		Calendar dob = student.getDob();
-		String password = student.getPassword();
-		String memorableWord = student.getMemorableWord();
+	public void overwriteStaffData(Staff Staff) {
+		int id = Staff.getId();
+		String first = Staff.getFirst();
+		String last = Staff.getLast();
+		String email = Staff.getEmail();
+		String subject = Staff.getSubjectTaught();
+		int yearsTeaching = Staff.getYearsTeaching();
+		Calendar dob = Staff.getDob();
+		String password = Staff.getPassword();
+		String memorableWord = Staff.getMemorableWord();
 		
 		try {
 			// checks whether the data array has been created
@@ -177,11 +177,11 @@ public class FileHandler {
 				this.dataArray = readFiletoArray();
 			}
 			
-			// find student in array by matching student object id with ids in student list
+			// find Staff in array by matching Staff object id with ids in Staff list
 			
-			for (int eachStudent = 0; eachStudent < this.dataArray.size(); eachStudent++) {
-				// get studentID - 'column 1'
-				if (dataArray.get(eachStudent).get(0) == String.valueOf(id)) {
+			for (int eachStaff = 0; eachStaff < this.dataArray.size(); eachStaff++) {
+				// get StaffID - 'column 1'
+				if (dataArray.get(eachStaff).get(0) == String.valueOf(id)) {
 					
 				}
 				System.out.println();
@@ -189,21 +189,21 @@ public class FileHandler {
 			
 			/*
 			
-			for (int eachStudent = 0; eachStudent < this.dataArray.size(); eachStudent++) {
-				for (int datum = 0; datum < this.dataArray.get(eachStudent).size(); datum++) {
-					System.out.println(dataArray.get(eachStudent).get(datum)+ " ");
+			for (int eachStaff = 0; eachStaff < this.dataArray.size(); eachStaff++) {
+				for (int datum = 0; datum < this.dataArray.get(eachStaff).size(); datum++) {
+					System.out.println(dataArray.get(eachStaff).get(datum)+ " ");
 				}
 				System.out.println();
 			}
 			*/
 		}
 		catch (Exception e) {
-			LOGGER.warning("Error overwriting student data");
+			LOGGER.warning("Error overwriting Staff data");
 		}
 	}
 	
 	
-	public void removeStudent(File dataFile, Student student) {
+	public void removeStaff(File dataFile, Staff Staff) {
 		
 	}
 	
@@ -216,13 +216,13 @@ public class FileHandler {
 	//--------------------------------------
 	
 	/* Accessing first element of every list
-	 * for (int student = 0; student < studentData.size(); student++) {
+	 * for (int Staff = 0; Staff < StaffData.size(); Staff++) {
 	 * }
 	 * 	System.out.println();
 	 * }
-	 * for (int student = 0; student < studentData.size(); student++) {
-			for (int datum = 0; datum < studentData.get(student).size(); datum++) {
-				System.out.println(studentData.get(student).get(datum)+ " ");
+	 * for (int Staff = 0; Staff < StaffData.size(); Staff++) {
+			for (int datum = 0; datum < StaffData.get(Staff).size(); datum++) {
+				System.out.println(StaffData.get(Staff).get(datum)+ " ");
 			}
 			System.out.println();
 		}
