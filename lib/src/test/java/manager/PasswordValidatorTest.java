@@ -20,16 +20,15 @@ public class PasswordValidatorTest {
 		
 		// check that the array returned contains correct valid characters
 		assertEquals('.', validChar[0]);
-		assertEquals(',', validChar[1]);
-		assertEquals(':', validChar[2]);
-		assertEquals('-', validChar[3]);
-		assertEquals('_', validChar[4]);
-		assertEquals('!', validChar[5]);
-		
+		assertEquals(':', validChar[1]);
+		assertEquals('-', validChar[2]);
+		assertEquals('_', validChar[3]);
+		assertEquals('!', validChar[4]);
+		assertEquals('@', validChar[5]);
 	}
 	
 	@Test
-	@DisplayName("Get Valid Lowercase Characters")
+	@DisplayName("Get Valid Uppercase Characters")
 	public void testValidUpper() {
 		// get array of valid uppercase Letters
 		char[] validChar = PasswordValidator.getUppercaseLetters();
@@ -44,9 +43,9 @@ public class PasswordValidatorTest {
 	}
 	
 	@Test
-	@DisplayName("Get Valid Uppercase Characters")
+	@DisplayName("Get Valid Lowercase Characters")
 	public void testValidLower() {
-		// get array of valid uppercase Letters
+		// get array of valid lowercase Letters
 		char[] validChar = PasswordValidator.getLowercaseLetters();
 		
 		// check that the array returned contains correct valid characters

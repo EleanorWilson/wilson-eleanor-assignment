@@ -8,6 +8,7 @@ import java.util.logging.*;
 
 import manager.PasswordValidator;
 import userData.Student;
+import manager.EntryValidator;
 import manager.FileHandler;
 
 public class SignUpStudent {
@@ -31,13 +32,29 @@ public class SignUpStudent {
 		System.out.println("Welcome new user!");
 		Scanner keyboard = new Scanner(System.in);
 		
-		String first = inputFirst(keyboard);
-		String last = inputLast(keyboard);
-		int yearOfBirth = inputYearOfBirth(keyboard);
-		int monthOfBirth = inputMonthOfBirth(keyboard);
-		int dayOfBirth = inputDayOfBirth(keyboard);
-		String subjectStudying = inputSubjectStudying(keyboard);
-		int yearOfStudy = inputYearOfStudy(keyboard);
+		// Declaring variables
+		String first;
+		String last;
+		int yearOfBirth;
+		int monthOfBirth;
+		int dayOfBirth;
+		String subjectStudying;
+		int yearOfStudy;
+		
+		// Getting inputs from user for variables
+		
+		studentNameLoop:
+		while (true) {
+			first = inputFirst(keyboard);
+		}
+		
+		
+		last = inputLast(keyboard);
+		yearOfBirth = inputYearOfBirth(keyboard);
+		monthOfBirth = inputMonthOfBirth(keyboard);
+		dayOfBirth = inputDayOfBirth(keyboard);
+		subjectStudying = inputSubjectStudying(keyboard);
+		yearOfStudy = inputYearOfStudy(keyboard);
 		
 		// this while loop allows users to see what they have entered and edit their details as needed
 		editDetails:
@@ -358,7 +375,7 @@ public class SignUpStudent {
 	}
 	
 	/**
-	 * This method prints the minimum requirements for a password to be considered.
+	 * This method prints the minimum requirements for a password to be considered valid.
 	 */
 	public static void printPasswordRules(Scanner keyboard) {
 		System.out.println("\nYour password must be at least " + PasswordValidator.getPasswordMinLength() + " characters long.\n" +
@@ -369,6 +386,18 @@ public class SignUpStudent {
 				"\n\nOnly the following special characters are allowed: ");
 		
 		char[] allowedSpecial = PasswordValidator.getValidSpecialCharacters();
+		for (char c : allowedSpecial) {
+			System.out.print(c+ " ");
+		}
+		System.out.println();
+	}
+	
+	/**
+	 * This method prints the minimum requirements for an entry to be considered valid.
+	 */
+	public static void printEntryRules(Scanner keyboard) {
+		System.out.println("\nThis entry can only contain upper- and lowercase letters and the following special characters ");
+		char[] allowedSpecial = EntryValidator.getValidSpecialCharacters();
 		for (char c : allowedSpecial) {
 			System.out.print(c+ " ");
 		}

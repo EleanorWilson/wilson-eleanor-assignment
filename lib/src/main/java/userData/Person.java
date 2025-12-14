@@ -204,7 +204,7 @@ public class Person {
 	/**
 	 * This method will assign the integer input as the person's day of birth, only if the input is between 1 and 31 (inclusive). 
 	 * This is a very simple method that does not check whether the month can contain that many days, e.g. it would still be 
-	 * 'valid' for february to have 31 days.
+	 * 'valid' for February to have 31 days.
 	 * @param dayOfBirth (int) - Only allows integer values between 1 and 31.
 	 */
 	public void setDayOfBirth(int dayOfBirth) {
