@@ -13,132 +13,155 @@ import userData.Student;
 import manager.EntryValidator;
 import manager.FileHandlerStudent;
 
-public class SignUpStudent {
-	
-	/*
-	public static void main(String[] args) throws IOException {
-		// tests
-	}
-	*/
+public class LoginPageStudent {
 	
 	// Adding a logger
 	private static Logger LOGGER = Logger.getLogger(SignUpStudent.class.getName());
 	
 	// Adding a new scanner
 	private static Scanner keyboard = new Scanner(System.in);
-	
 
 	/**
-	 * This method takes inputs from the user (first name, last name, etc) and creates a student object based on these inputs.
+	 * This method displays the menu/options upon logging in.
 	 * @throws IOException - if fileHandler path not valid
 	 */
-	public static void signUpStudent() throws IOException {
-		System.out.println("Welcome new user!");
+	public static void loginPageStudent(Student student) throws IOException {
+		System.out.print("Welcome back, "+student.getFirst()+"!");
 		keyboard = new Scanner(System.in);
+				
 		
-		// Declaring variables
-		String first;
-		String last;
-		int yearOfBirth;
-		int monthOfBirth;
-		int dayOfBirth;
-		String subjectStudying;
-		int yearOfStudy;
-		
-		// Getting inputs from user
-		
-		/*****************************
-		 * First Name
-		 *****************************/
-		
-		studentFirstInputLoop:
-		while (true) {
-			first = inputFirst(keyboard);
-			if (EntryValidator.entryValidator(first)) {
-				break studentFirstInputLoop;
-			}
-			else {
-				System.out.println("You have provided an invalid entry, try again");
-			}
-		}
-		
-		
-		/*****************************
-		 * Last Name
-		 *****************************/
-		
-		studentLastInputLoop:
-		while (true) {
-			last = inputLast(keyboard);
-			if (EntryValidator.entryValidator(last)) {
-				break studentLastInputLoop;
-			}
-			else {
-				System.out.println("You have provided an invalid entry, try again");
-			}			
-		}
-		
-		/*****************************
-		 * Date of Birth
-		 *****************************/
-		
-		dateOfBirthLoop:
-		while (true) {
-			try {
-				yearOfBirth = inputYearOfBirth(keyboard);
-				monthOfBirth = inputMonthOfBirth(keyboard);
-				dayOfBirth = inputDayOfBirth(keyboard);
-				Calendar dob = Calendar.getInstance();
-				dob.set(yearOfBirth, monthOfBirth-1, dayOfBirth);
-				break dateOfBirthLoop;
-			}
-			catch (Exception e) {
-				System.out.println("You have entered an invalid date of birth");
-			}
-		}
-		
-		
-		/*****************************
-		 * University Study Details
-		 *****************************/
-		
-		studentSubjectInputLoop:
-		while (true) {
-			subjectStudying = inputSubjectStudying(keyboard);
-			// using Subject validator, as spaces are allowed in the subject field
-			if (SubjectValidator.subjectValidator(subjectStudying)) {
-				break studentSubjectInputLoop;
-			}
-			else {
-				System.out.println("You have provided an invalid entry, try again");
-			}
-		}
-		
-		yearOfStudy = inputYearOfStudy(keyboard);
-		
-		/*****************************
-		 * User Edit Data
-		 *****************************/
-		
-		// this while loop allows users to see what they have entered and edit their details as needed
-		editDetails:
+		loginMenuLoop:
 		while (true) {
 			
-			System.out.println("Let's check your details are correct: ");
+			System.out.println("Here are your menu options below: ");
+			
 		
 			// Hash Map to Hold Student Details
-			HashMap<Integer, String> signUpDetails = new HashMap<Integer, String>();
-			signUpDetails.put(1, "First Name: "+first);
-			signUpDetails.put(2, "Last Name: "+last);
-			signUpDetails.put(3, "Birth Year: "+yearOfBirth);
-			signUpDetails.put(4, "Birth Month: "+monthOfBirth);
-			signUpDetails.put(5, "Birth Day: "+dayOfBirth);
-			signUpDetails.put(6, "Subject of Study: "+subjectStudying);
-			signUpDetails.put(7, "Year of Study: "+yearOfStudy);
+			HashMap<Integer, String> loginMenu = new HashMap<Integer, String>();
+			loginMenu.put(1, "View and Edit your details");
+			loginMenu.put(2, "Delete your account");
+			loginMenu.put(3, "Sign Out and Exit Application");
 			
 			// Ask user to pick menu option
-			for (Integer i : signUpDetails.keySet()) {
-				System.out.println(i+". "+signUpDetails.get(i));
+			for (Integer i : loginMenu.keySet()) {
+				System.out.println(i+". "+loginMenu.get(i));
+			}
+			System.out.println("Select an option from the list above.");
+			
+			
+			// Handling invalid options
+			handlingInput:
+			while (true) {
+				try {
+					int userChoice = Integer.valueOf(keyboard.nextLine());
+					
+					switch (userChoice) {
+					
+						// Edit and View Details
+						case 1: {
+							openEditDetailsMenu(student);
+							break handlingInput;
+						}
+						
+						// Delete Account
+						case 2: {
+							
+							// Ensuring user wants to delete account
+							System.out.println("Are you sure you want to delete your account? Please answer yes or no");
+							char input;
+							
+							deleteAccountLoop:
+							while (true) {
+								input = keyboard.nextLine().toLowerCase().charAt(0);
+								switch (input) {
+									case 'y': {
+										// Prompting user to enter password
+										System.out.println("Re-enter your password. If no longer wish to delete your account, type \"exit\"");
+										String userInputPassword = keyboard.nextLine();
+										while (true) {
+											if (userInputPassword.equals(student.getPassword())) {
+												deleteAccount(student);
+												break loginMenuLoop;
+											}
+											else if (userInputPassword.toLowerCase().equals("exit")) {
+												break deleteAccountLoop;
+											}
+											else {
+												System.out.println("Your passwords do not match. You cannot delete your account at this time.");
+											}
+										}
+									}
+									case 'n': {
+										break deleteAccountLoop;
+									}
+									default: {
+										System.out.println("Invalid answer given to the question 'do you want to delete your account'.\nPlease respond with a yes or no.");
+									}
+								}
+							}
+							break handlingInput;
+						}
+					
+						// Exit Application
+						case 3: {
+							break loginMenuLoop;
+						}
+						default: {
+							System.out.println("Invalid option selected. Choose from options 1, 2 or 3.");
+						}
+					} // switch end
+				}
+				catch (Exception e) {
+					LOGGER.info("Invalid input for edit details menu");
+				}
+			} // handlingInput Loop
+		} // loginMenuLoop
+		
+		
+	} // loginPageStudent
+		
+	/**
+	 * This method opens the edit details menu of the login page
+	 * @param student
+	 * @throws IOException
+	 */
+	public static void openEditDetailsMenu(Student student) throws IOException {
+		
+		// Declaring variables
+		int id = student.getId();
+		String first = student.getFirst();
+		String last = student.getLast();
+		String email = student.getEmail();
+		String subjectStudying = student.getSubjectStudying();
+		int yearOfStudy = student.getYearOfStudy();
+		int yearOfBirth = student.getYearOfBirth();
+		int monthOfBirth = student.getMonthOfBirth();
+		int dayOfBirth = student.getDayOfBirth();
+		String password = student.getPassword();
+		String memorableWord = student.getMemorableWord();
+		
+		editDetailsLoop:
+		while (true) {
+			
+			System.out.println("Here are your current details: ");
+			
+			System.out.println("Your ID is: "+id);
+		
+			// Hash Map to Hold Student Details
+			HashMap<Integer, String> editDetails = new HashMap<Integer, String>();
+			editDetails.put(1, "First Name: "+first);
+			editDetails.put(2, "Last Name: "+last);
+			editDetails.put(3, "Birth Year: "+yearOfBirth);
+			editDetails.put(4, "Birth Month: "+monthOfBirth);
+			editDetails.put(5, "Birth Day: "+dayOfBirth);
+			editDetails.put(6, "Subject of Study: "+subjectStudying);
+			editDetails.put(7, "Year of Study: "+yearOfStudy);
+			editDetails.put(8, "Password: "+ "********");
+			editDetails.put(9, "Memorable Word: "+memorableWord);
+			
+			// Ask user to pick menu option
+			for (Integer i : editDetails.keySet()) {
+				System.out.println(i+". "+editDetails.get(i));
 			}
 			System.out.println("If any of these details are incorrect, please enter the number you wish to change. If everything is correct, please enter '0'.\n");
 			
@@ -151,7 +174,7 @@ public class SignUpStudent {
 					
 					switch (userChoice) {
 						case 0: {
-							break editDetails;
+							break editDetailsLoop;
 						}
 						case 1: {
 							first = inputFirst(keyboard);
@@ -181,6 +204,14 @@ public class SignUpStudent {
 							yearOfStudy = inputYearOfStudy(keyboard);
 							break handlingInput;
 						}
+						case 8: {
+							password = changePassword(keyboard);
+							break handlingInput;
+						}
+						case 9: {
+							memorableWord = changeMemorableWord(keyboard);
+							break handlingInput;
+						}
 					} // switch end
 				}
 				catch (Exception e) {
@@ -190,102 +221,33 @@ public class SignUpStudent {
 		} // editDetails Loop
 		
 		
-		/*****************************
-		 * Password
-		 *****************************/
+		student.setFirst(first);
+		student.setLast(last);
+		student.setGenerateEmail();
+		student.setYearOfBirth(yearOfBirth);
+		student.setMonthOfBirth(monthOfBirth);
+		student.setDayOfBirth(dayOfBirth);
+		student.setGenerateDob(yearOfBirth, monthOfBirth, dayOfBirth);
+		student.setSubjectStudying(subjectStudying);
+		student.setYearOfStudy(yearOfStudy);
+		student.setPassword(password);
+		student.setMemorableWord(memorableWord);
 		
-		// Prompting user to enter a password.
-		System.out.println("Welcome, " + first + "! Time to choose a password for your account.");
-		String password;
+		System.out.println("Your ID is: "+ student.getId());
+		System.out.println("Your Email is: "+ student.getEmail());
 		
-		passwordChecker:
-		while (true) {
-			
-			printPasswordRules(keyboard);
-			
-			System.out.println("\nPlease choose a password:\n");
-			password = keyboard.nextLine();
-			System.out.println("\nPlease re-enter your password:\n");
-			if (password.equals(keyboard.nextLine())) {
-				if (PasswordValidator.passwordValidator(password)) {
-					break passwordChecker;
-				}
-				else {
-					System.out.println("Your password is invalid, try again.");
-				}
-			}
-			else {
-				System.out.println("Your password does not match, try again.");
-			}
-		} // passwordChecker Loop
+		FileHandlerStudent studentFile = new FileHandlerStudent("./src/main/resources/studentDatabase.txt");
 		
+		studentFile.overwriteStudentData(student);
 		
-		/*****************************
-		 * Memorable Word
-		 *****************************/
-				
-		// prompting the user to enter a memorable word
-		
-		System.out.println("Please choose a memorable word to remember your password.");
-		String memorableWord;
-		
-		// memorable word
-		studentMemorableWordInputLoop:
-		while (true) {
-			memorableWord = keyboard.nextLine();
-			if (EntryValidator.entryValidator(memorableWord)) {
-				break studentMemorableWordInputLoop;
-			}
-			else {
-				System.out.println("You have provided an invalid entry, try again");
-			}
-		}
-		
-		
-		System.out.println("Now that you have entered your details & chosen you password and memorable word. Let's save those to our database!");
-		
-		
-		/*****************************
-		 * Creating Student Object
-		 *****************************/
-		
-		Student newStudent = new Student();
-		newStudent.setGenerateId();
-		newStudent.setFirst(first);
-		newStudent.setLast(last);
-		newStudent.setGenerateEmail();
-		newStudent.setYearOfBirth(yearOfBirth);
-		newStudent.setMonthOfBirth(monthOfBirth);
-		newStudent.setDayOfBirth(dayOfBirth);
-		newStudent.setSubjectStudying(subjectStudying);
-		newStudent.setYearOfStudy(yearOfStudy);
-		newStudent.setPassword(password);
-		newStudent.setMemorableWord(memorableWord);
-		
-		try {
-			FileHandlerStudent studentFile = new FileHandlerStudent("./src/main/resources/studentDatabase.txt");
-			
-			// checking ID does not already exist, if it does, generate new ID
-			while (true) {
-				if (studentFile.idAlreadyExists(newStudent.getId())) {
-					newStudent.setGenerateId();
-				}
-				else {
-					break;
-				}
-			}
-			
-			studentFile.writeFileNewEntry(newStudent);
-			System.out.println("Success! Your Student ID is: " + newStudent.getId() + 
-					"\nYour Student Email is: " + newStudent.getEmail() +
-					"\nDo not forget your ID, you will need it to login.");
-		}
-		catch (Exception e) {
-			LOGGER.warning("Unable to add data to file");
-		}
-		
-	} // signUp Method
+	}
 	
+	public static void deleteAccount(Student student) throws IOException {
+		FileHandlerStudent studentFile = new FileHandlerStudent("./src/main/resources/studentDatabase.txt");
+		studentFile.removeStudent(student.getId(), student.getPassword());
+	}
+
+		
 	
 	//--------------------------------------
 	// methods
@@ -491,6 +453,63 @@ public class SignUpStudent {
 		}
 		System.out.println();
 	}
+	
+	/**
+	 * Allows user to change their password.
+	 * @param keyboard
+	 * @return Password (String).
+	 */
+	public static String changePassword(Scanner keyboard) {
+		String password;
+		
+		passwordChecker:
+		while (true) {
+			
+			printPasswordRules(keyboard);
+			
+			System.out.println("\nPlease choose a password:\n");
+			password = keyboard.nextLine();
+			System.out.println("\nPlease re-enter your password:\n");
+			if (password.equals(keyboard.nextLine())) {
+				if (PasswordValidator.passwordValidator(password)) {
+					break passwordChecker;
+				}
+				else {
+					System.out.println("Your password is invalid, try again.");
+				}
+			}
+			else {
+				System.out.println("Your password does not match, try again.");
+			}
+		} // passwordChecker Loop
+		
+		return password;
+	}
+	
+	/**
+	 * Allows user to change their memorableWord.
+	 * @param keyboard
+	 * @return Memorable word (String).
+	 */
+	public static String changeMemorableWord(Scanner keyboard) {
+		String memorableWord;
+		
+		// memorable word
+		studentMemorableWordInputLoop:
+		while (true) {
+			System.out.println("Please choose a memorable word to remember your password.");
+			memorableWord = keyboard.nextLine();
+			if (EntryValidator.entryValidator(memorableWord)) {
+				break studentMemorableWordInputLoop;
+			}
+			else {
+				System.out.println("You have provided an invalid entry, try again");
+			}
+		}
+		
+		return memorableWord;
+	}
+	
 	
 	/**
 	 * This method prints the minimum requirements for an entry to be considered valid.

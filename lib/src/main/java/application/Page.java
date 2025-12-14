@@ -4,7 +4,7 @@ public class Page {
 	
 	public static void welcome() {
 		System.out.println("--------------------------------"+
-				"\nWelcome to your student homepage" +
+				"\nWelcome to the university homepage" +
 				"\n--------------------------------");
 	}
 	
@@ -20,5 +20,17 @@ public class Page {
 		System.out.println("Are you a new staff member?");
 	}
 	
+	public static void studentLogin() {
+		System.out.println("--------------------------------"+
+				"\nWelcome to the student homepage" +
+				"\n--------------------------------" +
+				"\nPlease log in when prompted.");
+	}
 	
+	public static void staffLogin() {
+		System.out.println("--------------------------------"+
+				"\nWelcome to the staff homepage" +
+				"\n--------------------------------" +
+				"\nPlease log in when prompted.");
+	}
 }

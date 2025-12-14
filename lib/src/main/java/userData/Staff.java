@@ -48,7 +48,7 @@ public class Staff extends Person{
 	//--------------------------------------	
 	
 	/** 
-	 * This method generates an email from the first & last name of the student in the form first.last@stu.mmu.ac.uk
+	 * This method generates an email from the first & last name of the student in the form first.last@mmu.ac.uk
 	 * @return - This returns a String.
 	 */
 	public String generateEmail() {

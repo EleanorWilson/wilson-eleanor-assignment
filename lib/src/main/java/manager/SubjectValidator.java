@@ -5,15 +5,15 @@ import java.util.logging.*;
  * Class to check an entry (first name, last name, etc):
  * <br>- Contains <strong>only</strong> valid characters
  */
-public class EntryValidator {
+public class SubjectValidator {
 	// Adding a logger
-	private static Logger LOGGER = Logger.getLogger(EntryValidator.class.getName());
+	private static Logger LOGGER = Logger.getLogger(SubjectValidator.class.getName());
 	
 	// Entries must be a minimum of 1 characters long
 	private static final int entryMinLength = 1;
 	
 	// char[] lists of valid characters accepted in the entry
-	private static final char[] allowedSpecial = {'\'', '-' };
+	private static final char[] allowedSpecial = {'\'', '-', ' '};
 	private static final char[] allowedLower = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 	private static final char[] allowedUpper = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 	
@@ -138,7 +138,7 @@ public class EntryValidator {
 	 * <br>- true = entry is valid.
 	 * <br>- false = entry is not valid.
 	 */
-	public static boolean entryValidator(String entry) {
+	public static boolean subjectValidator(String entry) {
 		boolean validentry = true;
 		
 		if (!checkAllowedCharactersOnly(entry)) {
