@@ -27,10 +27,18 @@ Staff, on the other hand, will instead be asked:
 <ul>
   <li>Subject they teach</li>
   <li>For how many years they have been teaching at the University</li>
-</ul> 
+</ul>
+
+For the purposes of this application, staff specifically refers to staff members who teach.
 
 ### Known Potential Issues and Troubleshooting
 
 If the gradle/junit tests fail for the FileHandlerStudentTest class, this may be due to the studentDatabaseTest.txt file (located in src/test/resources) containing existing data. Trying opening the .txt file and CTRL+A then DELETE to remove all existing data, before trying again.
 
 When users are promtped to enter the day of the month on which they were born, the application checks only whether the integer entered is between 1 and 31, this can therefore lead to problems where an individual can enter invalid dates of birth, for example 31/02/2000 (31st of February is never a valid date).
+
+### Future Work and Other Points of Note
+
+This application does not currently check whether the subject entered is a 'valid subject', i.e. no comparison against a list of subjects offered by the university, or similar.
+
+Additionally, there is no security on the 'databases' for either the students or the staff. Both files can currently be opened and all entries, including sensitive information such as dates of birth and passwords, can be viewed by anyone with access to the file.
