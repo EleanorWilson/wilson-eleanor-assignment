@@ -39,6 +39,8 @@ When users are promtped to enter the day of the month on which they were born, t
 
 ### Future Work and Other Points of Note
 
+As my project uses gradle and JUnit testing for both dependency management and testing, I can produce a Build Scan (publishes to Develocity, an external site). The link to the most recent build scan is (found here)[https://scans.gradle.com/s/hr7qyklwm26py]. However, this can be replicated by opening the console, `cd` into the relevant folder or git repository, if cloned, and running the command `./gradlew clean --scan test` in the console (N.B. this does prompt you to enter your email address, to which a hyperlink to the build scan will be send, open these links at your own risk).
+
 This application does not currently check whether the subject entered is a 'valid subject', i.e. no comparison against a list of subjects offered by the university, or similar.
 
 Additionally, there is no security on the 'databases' for either the students or the staff. Both files can currently be opened and all entries, including sensitive information such as dates of birth and passwords, can be viewed by anyone with access to the file.
