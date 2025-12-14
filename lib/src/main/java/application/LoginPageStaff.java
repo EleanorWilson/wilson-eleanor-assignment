@@ -9,14 +9,14 @@ import java.util.logging.*;
 
 import manager.PasswordValidator;
 import manager.SubjectValidator;
-import userData.Student;
+import userData.Staff;
 import manager.EntryValidator;
-import manager.FileHandlerStudent;
+import manager.FileHandlerStaff;
 
-public class LoginPageStudent {
+public class LoginPageStaff {
 	
 	// Adding a logger
-	private static Logger LOGGER = Logger.getLogger(SignUpStudent.class.getName());
+	private static Logger LOGGER = Logger.getLogger(SignUpStaff.class.getName());
 	
 	// Adding a new scanner
 	private static Scanner keyboard = new Scanner(System.in);
@@ -25,8 +25,8 @@ public class LoginPageStudent {
 	 * This method displays the menu/options upon logging in.
 	 * @throws IOException - if fileHandler path not valid
 	 */
-	public static void loginPageStudent(Student student) throws IOException {
-		System.out.print("Welcome back, "+student.getFirst()+"!");
+	public static void loginPageStaff(Staff staff) throws IOException {
+		System.out.print("Welcome back, "+staff.getFirst()+"!");
 		keyboard = new Scanner(System.in);
 				
 		
@@ -36,7 +36,7 @@ public class LoginPageStudent {
 			System.out.println("Here are your menu options below: ");
 			
 		
-			// Hash Map to Hold Student Details
+			// Hash Map to Hold Staff Details
 			HashMap<Integer, String> loginMenu = new HashMap<Integer, String>();
 			loginMenu.put(1, "View and Edit your details");
 			loginMenu.put(2, "Delete your account");
@@ -59,7 +59,7 @@ public class LoginPageStudent {
 					
 						// Edit and View Details
 						case 1: {
-							openEditDetailsMenu(student);
+							openEditDetailsMenu(staff);
 							break handlingInput;
 						}
 						
@@ -79,8 +79,8 @@ public class LoginPageStudent {
 										System.out.println("Re-enter your password. If no longer wish to delete your account, type \"exit\"");
 										String userInputPassword = keyboard.nextLine();
 										while (true) {
-											if (userInputPassword.equals(student.getPassword())) {
-												deleteAccount(student);
+											if (userInputPassword.equals(staff.getPassword())) {
+												deleteAccount(staff);
 												break loginMenuLoop;
 											}
 											else if (userInputPassword.toLowerCase().equals("exit")) {
@@ -118,27 +118,27 @@ public class LoginPageStudent {
 		} // loginMenuLoop
 		
 		
-	} // loginPageStudent
+	} // loginPageStaff
 		
 	/**
 	 * This method opens the edit details menu of the login page
-	 * @param student
+	 * @param staff
 	 * @throws IOException
 	 */
-	public static void openEditDetailsMenu(Student student) throws IOException {
+	public static void openEditDetailsMenu(Staff staff) throws IOException {
 		
 		// Declaring variables
-		int id = student.getId();
-		String first = student.getFirst();
-		String last = student.getLast();
-		String email = student.getEmail();
-		String subjectStudying = student.getSubjectStudying();
-		int yearOfStudy = student.getYearOfStudy();
-		int yearOfBirth = student.getYearOfBirth();
-		int monthOfBirth = student.getMonthOfBirth();
-		int dayOfBirth = student.getDayOfBirth();
-		String password = student.getPassword();
-		String memorableWord = student.getMemorableWord();
+		int id = staff.getId();
+		String first = staff.getFirst();
+		String last = staff.getLast();
+		String email = staff.getEmail();
+		String subjectTaught = staff.getSubjectTaught();
+		int yearsTeaching = staff.getYearsTeaching();
+		int yearOfBirth = staff.getYearOfBirth();
+		int monthOfBirth = staff.getMonthOfBirth();
+		int dayOfBirth = staff.getDayOfBirth();
+		String password = staff.getPassword();
+		String memorableWord = staff.getMemorableWord();
 		
 		editDetailsLoop:
 		while (true) {
@@ -147,15 +147,15 @@ public class LoginPageStudent {
 			
 			System.out.println("Your ID is: "+id);
 		
-			// Hash Map to Hold Student Details
+			// Hash Map to Hold Staff Details
 			HashMap<Integer, String> editDetails = new HashMap<Integer, String>();
 			editDetails.put(1, "First Name: "+first);
 			editDetails.put(2, "Last Name: "+last);
 			editDetails.put(3, "Birth Year: "+yearOfBirth);
 			editDetails.put(4, "Birth Month: "+monthOfBirth);
 			editDetails.put(5, "Birth Day: "+dayOfBirth);
-			editDetails.put(6, "Subject of Study: "+subjectStudying);
-			editDetails.put(7, "Year of Study: "+yearOfStudy);
+			editDetails.put(6, "Subject of Study: "+subjectTaught);
+			editDetails.put(7, "Year of Study: "+yearsTeaching);
 			editDetails.put(8, "Password: "+ "********");
 			editDetails.put(9, "Memorable Word: "+memorableWord);
 			
@@ -197,11 +197,11 @@ public class LoginPageStudent {
 							break handlingInput;
 						}
 						case 6: {
-							subjectStudying = inputSubjectStudying(keyboard);
+							subjectTaught = inputSubjectTaught(keyboard);
 							break handlingInput;
 						}
 						case 7: {
-							yearOfStudy = inputYearOfStudy(keyboard);
+							yearsTeaching = inputYearsTeaching(keyboard);
 							break handlingInput;
 						}
 						case 8: {
@@ -221,30 +221,30 @@ public class LoginPageStudent {
 		} // editDetails Loop
 		
 		
-		student.setFirst(first);
-		student.setLast(last);
-		student.setGenerateEmail();
-		student.setYearOfBirth(yearOfBirth);
-		student.setMonthOfBirth(monthOfBirth);
-		student.setDayOfBirth(dayOfBirth);
-		student.setGenerateDob(yearOfBirth, monthOfBirth, dayOfBirth);
-		student.setSubjectStudying(subjectStudying);
-		student.setYearOfStudy(yearOfStudy);
-		student.setPassword(password);
-		student.setMemorableWord(memorableWord);
+		staff.setFirst(first);
+		staff.setLast(last);
+		staff.setGenerateEmail();
+		staff.setYearOfBirth(yearOfBirth);
+		staff.setMonthOfBirth(monthOfBirth);
+		staff.setDayOfBirth(dayOfBirth);
+		staff.setGenerateDob(yearOfBirth, monthOfBirth, dayOfBirth);
+		staff.setSubjectTaught(subjectTaught);
+		staff.setYearsTeaching(yearsTeaching);
+		staff.setPassword(password);
+		staff.setMemorableWord(memorableWord);
 		
-		System.out.println("Your ID is: "+ student.getId());
-		System.out.println("Your Email is: "+ student.getEmail());
+		System.out.println("Your ID is: "+ staff.getId());
+		System.out.println("Your Email is: "+ staff.getEmail());
 		
-		FileHandlerStudent studentFile = new FileHandlerStudent("./src/main/resources/studentDatabase.txt");
+		FileHandlerStaff staffFile = new FileHandlerStaff("./src/main/resources/staffDatabase.txt");
 		
-		studentFile.overwriteStudentData(student);
+		staffFile.overwriteStaffData(staff);
 		
 	}
 	
-	public static void deleteAccount(Student student) throws IOException {
-		FileHandlerStudent studentFile = new FileHandlerStudent("./src/main/resources/studentDatabase.txt");
-		studentFile.removeStudent(student.getId(), student.getPassword());
+	public static void deleteAccount(Staff staff) throws IOException {
+		FileHandlerStaff staffFile = new FileHandlerStaff("./src/main/resources/staffDatabase.txt");
+		staffFile.removeStaff(staff.getId(), staff.getPassword());
 	}
 
 		
@@ -388,39 +388,37 @@ public class LoginPageStudent {
 	 * This method prompts the user to enter their Subject of study.
 	 * @return subject (String)
 	 */	
-	public static String inputSubjectStudying(Scanner keyboard) {
-		String subjectStudying = "";
+	public static String inputSubjectTaught(Scanner keyboard) {
+		String subjectTaught = "";
 		while (true) {
 			try {
 				System.out.println("Which subject are you studying?");
-				subjectStudying = keyboard.nextLine().toLowerCase();
+				subjectTaught = keyboard.nextLine().toLowerCase();
 				// reformatting to capitalise the first letter
-				subjectStudying = subjectStudying.substring(0,1).toUpperCase() + subjectStudying.substring(1,subjectStudying.length());
+				subjectTaught = subjectTaught.substring(0,1).toUpperCase() + subjectTaught.substring(1,subjectTaught.length());
 				break;
 			}
 			catch (Exception e) {
 				LOGGER.info("Invalid input");
 			}
 		}
-		return subjectStudying;
+		return subjectTaught;
 	}
 	
 	
 	/**
-	 * This method prompts the user to enter their year of study. It checks that the year is valid (i.e. between 0 and 7).
-	 * <br>- Year 0 = Foundation
-	 * <br>- Year 7 = PhD (part-time) Final Year
-	 * @return year - Year of study (int) the student is currently in
+	 * This method prompts the user to enter the length of time (in years) that they have been teaching at the university.
+	 * @return day of birth (int)
 	 */
-	public static int inputYearOfStudy(Scanner keyboard) {
+	public static int inputYearsTeaching(Scanner keyboard) {
 		int year;
 		while (true) {
 			try {
-				System.out.println("Which year of study are you currently in?");
+				System.out.println("How long have you been teaching at mmu for?");
 				year = Integer.valueOf(keyboard.nextLine());
 				
-				// Checks that the year of study is valid (0 - 7)
-				if (year <= 7 && year >= 0) {
+				// Checks that the number of years teaching is valid
+				if (year <= 100 && year >= 0) {
 					break;
 				}
 				
@@ -495,12 +493,12 @@ public class LoginPageStudent {
 		String memorableWord;
 		
 		// memorable word
-		studentMemorableWordInputLoop:
+		staffMemorableWordInputLoop:
 		while (true) {
 			System.out.println("Please choose a memorable word to remember your password.");
 			memorableWord = keyboard.nextLine();
 			if (EntryValidator.entryValidator(memorableWord)) {
-				break studentMemorableWordInputLoop;
+				break staffMemorableWordInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");

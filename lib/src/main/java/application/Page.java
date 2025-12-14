@@ -24,8 +24,13 @@ public class Page {
 		System.out.println("--------------------------------"+
 				"\nWelcome to the student homepage" +
 				"\n--------------------------------" +
-				"\nPlease login when prompted.");
+				"\nPlease log in when prompted.");
 	}
 	
-	
+	public static void staffLogin() {
+		System.out.println("--------------------------------"+
+				"\nWelcome to the staff homepage" +
+				"\n--------------------------------" +
+				"\nPlease log in when prompted.");
+	}
 }

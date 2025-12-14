@@ -30,7 +30,7 @@ public class SignUpStaff {
 	 */
 	public static void signUpStaff() throws IOException {
 		System.out.println("Welcome new user!");
-		Scanner keyboard = new Scanner(System.in);
+		keyboard = new Scanner(System.in);
 		
 		// Declaring variables
 		String first;
@@ -403,7 +403,7 @@ public class SignUpStaff {
 		String SubjectTaught = "";
 		while (true) {
 			try {
-				System.out.println("Which subject are you studying?");
+				System.out.println("Which subject do you teach?");
 				SubjectTaught = keyboard.nextLine().toLowerCase();
 				// reformatting to capitalise the first letter
 				SubjectTaught = SubjectTaught.substring(0,1).toUpperCase() + SubjectTaught.substring(1,SubjectTaught.length());
@@ -418,20 +418,18 @@ public class SignUpStaff {
 	
 	
 	/**
-	 * This method prompts the user to enter their year of study. It checks that the year is valid (i.e. between 0 and 7).
-	 * <br>- Year 0 = Foundation
-	 * <br>- Year 7 = PhD (part-time) Final Year
+	 * This method prompts the user to enter the length of time (in years) that they have been teaching at the university.
 	 * @return day of birth (int)
 	 */
 	public static int inputYearsTeaching(Scanner keyboard) {
 		int year;
 		while (true) {
 			try {
-				System.out.println("Which year of study are you currently in?");
+				System.out.println("How long have you been teaching at MMU for?");
 				year = Integer.valueOf(keyboard.nextLine());
 				
-				// Checks that the year of study is valid (0 - 7)
-				if (year <= 7 && year >= 0) {
+				// Checks that the number of years teaching is valid
+				if (year <= 100 && year >= 0) {
 					break;
 				}
 				

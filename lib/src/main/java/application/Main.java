@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.*;
 import application.SignUpStaff;
+import manager.FileHandlerStaff;
 import manager.FileHandlerStudent;
+import userData.Staff;
 import userData.Student;
 
 public class Main {
@@ -147,14 +149,14 @@ public class Main {
 			currentStudent.setMemorableWord(studentFile.readStudentMemorableWord(id));
 			
 			
-			System.out.print("Welcome back, "+currentStudent.getFirst()+"!");
+			LoginPageStudent.loginPageStudent(currentStudent);
 			
 		}	
 		
 		//---------------------------
 		// run staff page
 		//---------------------------
-		else {
+		else if (!isStudent) {
 			
 			Page.newOrReturningStaff();
 						
@@ -167,7 +169,7 @@ public class Main {
 						isNew = true;
 						break newOrReturningLoop;
 					case 'n':
-						isStudent = false;
+						isNew = false;
 						break newOrReturningLoop;
 					default:
 						LOGGER.info("Invalid input");
@@ -176,10 +178,101 @@ public class Main {
 				}
 			}
 			
+			//------------------------------
+			// Sign up
+			//------------------------------
+			
+			if (isNew) {
+				SignUpStaff.signUpStaff();
+			}
+			
+			//------------------------------
+			// Login
+			//------------------------------
+			
+			Page.staffLogin();
+			
+			// Take login details
+			int id = 0;
+			String password = "";
+			FileHandlerStaff staffFile = new FileHandlerStaff("./src/main/resources/staffDatabase.txt");
+			
+			System.out.println("What is your Staff ID");
+			
+			staffIDLoop:
+			while (true) {
+				try {
+					id = Integer.valueOf(keyboard.nextLine());
+					if (staffFile.idAlreadyExists(id)) {
+						break staffIDLoop;
+					}
+					else {
+						
+						backToSignInLoop:
+						while (true) {
+							System.out.println("Your ID has not been found in the database. Do you need to be taken to the sign in page?");
+							char backToSignIn = keyboard.nextLine().charAt(0);
+							switch (backToSignIn) {
+								case 'y': 
+									SignUpStaff.signUpStaff();
+								case 'n':
+									break backToSignInLoop;
+								default: {
+									System.out.println("You have entered an invalid option, respond yes or no.");
+									continue;
+								}
+							}
+						} // back to sign in loop
+					}
+				}
+				catch (Exception e) {
+					System.out.println("Your ID must be an integer, please try again");
+				}
+			}
+			
+			// Creating staff object
+			Staff currentStaff = new Staff();
+			currentStaff.setId(id);
+			
+			// finding password for staff
+			String passwordOnFile = staffFile.readStaffPassword(id);
+			String memorableWordOnFile = staffFile.readStaffMemorableWord(id);
+			
+			System.out.println("Enter your password");
+			loginLoop:
+			while(true) {
+				password = keyboard.nextLine();
+				if (password.equals(passwordOnFile)) {
+					break loginLoop;
+				}
+				else {
+					System.out.println("You have entered the wrong password, try again.\nYour memorable word is: "+memorableWordOnFile);
+				}
+			}
+			
+			// once Staff has logged in, fill in Staff Object
+			currentStaff.setFirst(staffFile.readStaffFirst(id));
+			currentStaff.setLast(staffFile.readStaffLast(id));
+			currentStaff.setEmail(staffFile.readStaffEmail(id));
+			currentStaff.setSubjectTaught(staffFile.readStaffSubjectTaught(id));
+			currentStaff.setYearsTeaching(staffFile.readStaffYearsTeaching(id));
+			currentStaff.setYearOfBirth(staffFile.readStaffYearOfBirth(id));
+			currentStaff.setMonthOfBirth(staffFile.readStaffMonthOfBirth(id));
+			currentStaff.setDayOfBirth(staffFile.readStaffDayOfBirth(id));
+			currentStaff.setPassword(staffFile.readStaffPassword(id));
+			currentStaff.setMemorableWord(staffFile.readStaffMemorableWord(id));
+			
+			
+			LoginPageStaff.loginPageStaff(currentStaff);
 			
 		}
 		
-
+		
+		//-------------------------
+		// exit application
+		//-------------------------
+		
+		System.out.println("Closing application.");
 		
 		// finally closing keyboard
 		keyboard.close();

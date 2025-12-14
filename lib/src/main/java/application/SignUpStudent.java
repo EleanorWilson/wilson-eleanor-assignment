@@ -448,7 +448,7 @@ public class SignUpStudent {
 	 * This method prompts the user to enter their year of study. It checks that the year is valid (i.e. between 0 and 7).
 	 * <br>- Year 0 = Foundation
 	 * <br>- Year 7 = PhD (part-time) Final Year
-	 * @return day of birth (int)
+	 * @return year - Year of study (int) the student is currently in
 	 */
 	public static int inputYearOfStudy(Scanner keyboard) {
 		int year;
