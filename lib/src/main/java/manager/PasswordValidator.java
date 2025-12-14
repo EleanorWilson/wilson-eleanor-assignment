@@ -8,7 +8,7 @@ import java.util.logging.*;
  * <br>- Contains at least one of each of the following: uppercase letter, lowercase letter, special character, number.
  */
 public class PasswordValidator {
-	//Logger
+	// Adding a logger
 	private static Logger LOGGER = Logger.getLogger(PasswordValidator.class.getName());
 	
 	// Passwords must be a minimum of 8 characters long
@@ -21,7 +21,7 @@ public class PasswordValidator {
 	private static final int passwordMinDigits = 1;
 	
 	// char[] lists of valid characters accepted in the password
-	private static final char[] allowedSpecial = {'.' , ',' , ':' , '-', '_' , '!', '@' };
+	private static final char[] allowedSpecial = {'.', ':' , '-', '_' , '!', '@' };
 	private static final char[] allowedLower = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 	private static final char[] allowedUpper = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 	private static final char[] allowedDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
