@@ -223,6 +223,7 @@ public class Main {
 								}
 							}
 						} // back to sign in loop
+						continue;
 					}
 				}
 				catch (Exception e) {

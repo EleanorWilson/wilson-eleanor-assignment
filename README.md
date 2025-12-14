@@ -33,7 +33,7 @@ For the purposes of this application, staff specifically refers to staff members
 
 ### Known Potential Issues and Troubleshooting
 
-If the gradle/junit tests fail for the FileHandlerStudentTest class, this may be due to the studentDatabaseTest.txt file (located in src/test/resources) containing existing data. Trying opening the .txt file and CTRL+A then DELETE to remove all existing data, before trying again.
+If the gradle/junit tests fail for the FileHandlerStudentTest or FileHandlerStaffTest classes, this may be due to either the studentDatabaseTest.txt file or the staffDatabaseTest.txt file(located in src/test/resources) containing existing data. Trying opening the .txt file and CTRL+A then DELETE to remove all existing data, before trying again.
 
 When users are promtped to enter the day of the month on which they were born, the application checks only whether the integer entered is between 1 and 31, this can therefore lead to problems where an individual can enter invalid dates of birth, for example 31/02/2000 (31st of February is never a valid date).
 
