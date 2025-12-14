@@ -1,5 +1,8 @@
 package application;
 
+/**
+ * This is a class designed to print messages to the console.
+ */
 public class Page {
 	
 	public static void welcome() {
