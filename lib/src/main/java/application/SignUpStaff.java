@@ -2,20 +2,24 @@ package application;
 
 import java.io.IOException;
 import java.time.Year;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.*;
 
 import manager.PasswordValidator;
+import manager.SubjectValidator;
 import userData.Staff;
 import manager.EntryValidator;
 import manager.FileHandlerStaff;
 
 public class SignUpStaff {
 	
+	/*
 	public static void main(String[] args) throws IOException {
 		// tests
 	}
+	*/
 	
 	// Adding a logger
 	private static Logger LOGGER = Logger.getLogger(SignUpStaff.class.getName());
@@ -25,7 +29,7 @@ public class SignUpStaff {
 	
 
 	/**
-	 * This method takes inputs from the user (first name, last name, etc) and creates a Staff object based on these inputs.
+	 * This method takes inputs from the user (first name, last name, etc) and creates a staff object based on these inputs.
 	 * @throws IOException - if fileHandler path not valid
 	 */
 	public static void signUpStaff() throws IOException {
@@ -38,8 +42,8 @@ public class SignUpStaff {
 		int yearOfBirth;
 		int monthOfBirth;
 		int dayOfBirth;
-		String SubjectTaught;
-		int YearsTeaching;
+		String subjectTaught;
+		int yearsTeaching;
 		
 		// Getting inputs from user
 		
@@ -47,11 +51,11 @@ public class SignUpStaff {
 		 * First Name
 		 *****************************/
 		
-		StaffFirstInputLoop:
+		staffFirstInputLoop:
 		while (true) {
 			first = inputFirst(keyboard);
 			if (EntryValidator.entryValidator(first)) {
-				break StaffFirstInputLoop;
+				break staffFirstInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");
@@ -63,11 +67,11 @@ public class SignUpStaff {
 		 * Last Name
 		 *****************************/
 		
-		StaffLastInputLoop:
+		staffLastInputLoop:
 		while (true) {
 			last = inputLast(keyboard);
 			if (EntryValidator.entryValidator(last)) {
-				break StaffLastInputLoop;
+				break staffLastInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");
@@ -78,27 +82,39 @@ public class SignUpStaff {
 		 * Date of Birth
 		 *****************************/
 		
-		yearOfBirth = inputYearOfBirth(keyboard);
-		monthOfBirth = inputMonthOfBirth(keyboard);
-		dayOfBirth = inputDayOfBirth(keyboard);
+		dateOfBirthLoop:
+		while (true) {
+			try {
+				yearOfBirth = inputYearOfBirth(keyboard);
+				monthOfBirth = inputMonthOfBirth(keyboard);
+				dayOfBirth = inputDayOfBirth(keyboard);
+				Calendar dob = Calendar.getInstance();
+				dob.set(yearOfBirth, monthOfBirth-1, dayOfBirth);
+				break dateOfBirthLoop;
+			}
+			catch (Exception e) {
+				System.out.println("You have entered an invalid date of birth");
+			}
+		}
 		
 		
 		/*****************************
-		 * University Teaching Details
+		 * University Study Details
 		 *****************************/
 		
-		StaffSubjectInputLoop:
+		staffSubjectInputLoop:
 		while (true) {
-			SubjectTaught = inputSubjectTaught(keyboard);
-			if (EntryValidator.entryValidator(SubjectTaught)) {
-				break StaffSubjectInputLoop;
+			subjectTaught = inputSubjectTaught(keyboard);
+			// using Subject validator, as spaces are allowed in the subject field
+			if (SubjectValidator.subjectValidator(subjectTaught)) {
+				break staffSubjectInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");
 			}
 		}
 		
-		YearsTeaching = inputYearsTeaching(keyboard);
+		yearsTeaching = inputYearsTeaching(keyboard);
 		
 		/*****************************
 		 * User Edit Data
@@ -117,8 +133,8 @@ public class SignUpStaff {
 			signUpDetails.put(3, "Birth Year: "+yearOfBirth);
 			signUpDetails.put(4, "Birth Month: "+monthOfBirth);
 			signUpDetails.put(5, "Birth Day: "+dayOfBirth);
-			signUpDetails.put(6, "Subject of Study: "+SubjectTaught);
-			signUpDetails.put(7, "Year of Study: "+YearsTeaching);
+			signUpDetails.put(6, "Subject of Study: "+subjectTaught);
+			signUpDetails.put(7, "Year of Study: "+yearsTeaching);
 			
 			// Ask user to pick menu option
 			for (Integer i : signUpDetails.keySet()) {
@@ -158,11 +174,11 @@ public class SignUpStaff {
 							break handlingInput;
 						}
 						case 6: {
-							SubjectTaught = inputSubjectTaught(keyboard);
+							subjectTaught = inputSubjectTaught(keyboard);
 							break handlingInput;
 						}
 						case 7: {
-							YearsTeaching = inputYearsTeaching(keyboard);
+							yearsTeaching = inputYearsTeaching(keyboard);
 							break handlingInput;
 						}
 					} // switch end
@@ -214,11 +230,11 @@ public class SignUpStaff {
 		String memorableWord;
 		
 		// memorable word
-		StaffMemorableWordInputLoop:
+		staffMemorableWordInputLoop:
 		while (true) {
 			memorableWord = keyboard.nextLine();
 			if (EntryValidator.entryValidator(memorableWord)) {
-				break StaffMemorableWordInputLoop;
+				break staffMemorableWordInputLoop;
 			}
 			else {
 				System.out.println("You have provided an invalid entry, try again");
@@ -241,17 +257,28 @@ public class SignUpStaff {
 		newStaff.setYearOfBirth(yearOfBirth);
 		newStaff.setMonthOfBirth(monthOfBirth);
 		newStaff.setDayOfBirth(dayOfBirth);
-		newStaff.setSubjectTaught(SubjectTaught);
-		newStaff.setYearsTeaching(YearsTeaching);
+		newStaff.setSubjectTaught(subjectTaught);
+		newStaff.setYearsTeaching(yearsTeaching);
 		newStaff.setPassword(password);
 		newStaff.setMemorableWord(memorableWord);
 		
 		try {
-			FileHandlerStaff StaffFile = new FileHandlerStaff("/StaffDatabase.txt");
-			StaffFile.writeFileNewEntry(newStaff);
+			FileHandlerStaff staffFile = new FileHandlerStaff("./src/main/resources/staffDatabase.txt");
+			
+			// checking ID does not already exist, if it does, generate new ID
+			while (true) {
+				if (staffFile.idAlreadyExists(newStaff.getId())) {
+					newStaff.setGenerateId();
+				}
+				else {
+					break;
+				}
+			}
+			
+			staffFile.writeFileNewEntry(newStaff);
 			System.out.println("Success! Your Staff ID is: " + newStaff.getId() + 
 					"\nYour Staff Email is: " + newStaff.getEmail() +
-					"\nDo not forget these details, you will need them to login.");
+					"\nDo not forget your ID, you will need it to login.");
 		}
 		catch (Exception e) {
 			LOGGER.warning("Unable to add data to file");
@@ -315,7 +342,7 @@ public class SignUpStaff {
 		int year;
 		while (true) {
 			try {
-				System.out.println("What year were you born in?");
+				System.out.println("What year were you born in? Please use the format: YYYY");
 				year = Integer.valueOf(keyboard.nextLine());
 				
 				// Checks yearToday-18 as minimum age for university is 18 years old
@@ -346,7 +373,7 @@ public class SignUpStaff {
 		int month;
 		while (true) {
 			try {
-				System.out.println("Which month were you born on?");
+				System.out.println("Which month were you born on? Please enter the month's cardinal number.");
 				month = Integer.valueOf(keyboard.nextLine());
 				
 				// Checks that the month is valid (1 - 12)
@@ -374,7 +401,7 @@ public class SignUpStaff {
 		int day;
 		while (true) {
 			try {
-				System.out.println("Which day of the month were you born on?");
+				System.out.println("Which day of the month were you born on? Please enter the day's cardinal number.");
 				day = Integer.valueOf(keyboard.nextLine());
 				
 				// Checks that the day of the month is valid (1 - 31)
@@ -396,8 +423,8 @@ public class SignUpStaff {
 	
 	
 	/**
-	 * This method prompts the user to enter their Subject of study.
-	 * @return subject (String)
+	 * This method prompts the user to enter the subject they teach.
+	 * @return subject - Subject taught by staff member (String)
 	 */	
 	public static String inputSubjectTaught(Scanner keyboard) {
 		String SubjectTaught = "";
@@ -419,7 +446,7 @@ public class SignUpStaff {
 	
 	/**
 	 * This method prompts the user to enter the length of time (in years) that they have been teaching at the university.
-	 * @return day of birth (int)
+	 * @return year - Years teaching at the university.
 	 */
 	public static int inputYearsTeaching(Scanner keyboard) {
 		int year;

@@ -26,7 +26,7 @@ public class LoginPageStaff {
 	 * @throws IOException - if fileHandler path not valid
 	 */
 	public static void loginPageStaff(Staff staff) throws IOException {
-		System.out.print("Welcome back, "+staff.getFirst()+"!");
+		System.out.println("Welcome back, "+staff.getFirst()+"!");
 		keyboard = new Scanner(System.in);
 				
 		
