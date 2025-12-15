@@ -7,7 +7,8 @@ import java.util.logging.*;
 
 
 /**
- * {@summary} This class is used to generate student objects and parameters for the student class. It contains getters and setters for student objects.
+ * This class is used to generate person objects and parameters for the person class. It contains getters and setters for person objects. 
+ * Student and Staff classes inherit the Person class.
  */
 public class Person {
 	// Adding a logger
@@ -28,7 +29,7 @@ public class Person {
 	//--------------------------------------
 	
 	/**
-	 * This is an empty constructor for student objects.
+	 * This is an empty constructor for person objects.
 	 */
 	public Person() {} // empty constructor
 	

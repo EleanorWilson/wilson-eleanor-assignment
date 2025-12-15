@@ -13,6 +13,9 @@ import userData.Student;
 import manager.EntryValidator;
 import manager.FileHandlerStudent;
 
+/**
+ *  This class is designed to run the 'sign in' page for Students. Allowing users to 'open an account', after which they can 'log in'.
+ */
 public class SignUpStudent {
 	
 	/*

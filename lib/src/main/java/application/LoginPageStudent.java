@@ -13,6 +13,9 @@ import userData.Student;
 import manager.EntryValidator;
 import manager.FileHandlerStudent;
 
+/**
+ *  This class is designed to run the 'log in' page for Students. Allowing users to edit their details, delete their account and exit the application.
+ */
 public class LoginPageStudent {
 	
 	// Adding a logger

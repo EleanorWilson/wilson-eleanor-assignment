@@ -17,14 +17,14 @@ public class Staff extends Person{
 	//--------------------------------------
 	
 	/**
-	 * This is an empty constructor for student objects.
+	 * This is an empty constructor for staff objects.
 	 */
 	public Staff() { }
 	
 	/**
 	 * This constructor creates a Staff object from which the methods in the Staff class can be called.
 	 * @param id - Id must be in integer form, can be generated with the generateId method of the parent class (Person).
-	 * @param first - This is the first name of the student, must be a string. From the parent class (Person).
+	 * @param first - This is the first name of the staff, must be a string. From the parent class (Person).
 	 * @param last - This is the last name of the staff member, must be a string. From the parent class (Person).
 	 * @param email - This is the email address of the staff member in the form first.last@mmu.ac.uk. Can be generated with the generateEmail method of this class.
 	 * @param subjectTaught - This is the subject the staff member is currently teaching, must be a string.
@@ -48,7 +48,7 @@ public class Staff extends Person{
 	//--------------------------------------	
 	
 	/** 
-	 * This method generates an email from the first & last name of the student in the form first.last@mmu.ac.uk
+	 * This method generates an email from the first & last name of the staff in the form first.last@mmu.ac.uk
 	 * @return - This returns a String.
 	 */
 	public String generateEmail() {

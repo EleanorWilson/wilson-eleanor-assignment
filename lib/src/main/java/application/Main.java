@@ -9,6 +9,9 @@ import manager.FileHandlerStudent;
 import userData.Staff;
 import userData.Student;
 
+/**
+ * <strong>Main application</strong><br><br>This class contains the application itself, combining methods from other classes.
+ */
 public class Main {
 	public static void main(String[] args) throws IOException {
 		// Adding logger

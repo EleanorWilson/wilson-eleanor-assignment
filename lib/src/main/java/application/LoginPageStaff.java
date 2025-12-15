@@ -13,6 +13,9 @@ import userData.Staff;
 import manager.EntryValidator;
 import manager.FileHandlerStaff;
 
+/**
+ *  This class is designed to run the 'log in' page for Staff members. Allowing users to edit their details, delete their account and exit the application.
+ */
 public class LoginPageStaff {
 	
 	// Adding a logger

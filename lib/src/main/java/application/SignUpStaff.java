@@ -13,6 +13,9 @@ import userData.Staff;
 import manager.EntryValidator;
 import manager.FileHandlerStaff;
 
+/**
+ *  This class is designed to run the 'sign in' page for Staff members. Allowing users to 'open an account', after which they can 'log in'.
+ */
 public class SignUpStaff {
 	
 	/*
