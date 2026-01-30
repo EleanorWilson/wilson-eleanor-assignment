@@ -5,9 +5,9 @@ By Eleanor L. Wilson
 ## Overview
 The aim of this project was to create an application that simulates a simple university sign up/login page, for both students and staff, with a simple database to store login details in the form of a comma separated data file. 
 
-Source code for this project can be found at: [this GitHub repo](https://github.com/EleanorWilson/wilson-eleanor-assignment/tree/master).
+Source code for this project can be found at: https://github.com/EleanorWilson/wilson-eleanor-assignment/tree/master
 
-This report can be found at: [this link](https://github.com/EleanorWilson/wilson-eleanor-assignment/blob/master/Blog.md).
+This report can be found at: https://github.com/EleanorWilson/wilson-eleanor-assignment/blob/master/Blog.md
 
 ## Architecture & Code
 
