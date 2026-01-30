@@ -5,7 +5,7 @@ The aim of this project was to create an application that simulates a simple uni
 
 Source code for this project can be found at: [this GitHub repo](https://github.com/EleanorWilson/wilson-eleanor-assignment/tree/master).
 
-This report can be found at: []().
+This report can be found at: [this link](https://github.com/EleanorWilson/wilson-eleanor-assignment/blob/master/Blog.md).
 
 ## Architecture & Code
 
