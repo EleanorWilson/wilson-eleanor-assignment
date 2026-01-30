@@ -1,5 +1,7 @@
 # Introduction to Programming Digital Artefact: University Login Page
 
+By Eleanor L. Wilson
+
 ## Overview
 The aim of this project was to create an application that simulates a simple university sign up/login page, for both students and staff, with a simple database to store login details in the form of a comma separated data file. 
 
